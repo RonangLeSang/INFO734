@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f2ebd56-a88f-4bc0-8843-76296e1a47da" name="Changes" comment="[FEATURE] component Token that works a little">
-      <change beforePath="$PROJECT_DIR$/FrontEnd/p4/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/p4/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/p4/src/app/Components/grid/grid.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/p4/src/app/Components/grid/grid.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/p4/src/app/Components/grid/grid.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/p4/src/app/Components/grid/grid.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +15,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -58,7 +58,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Users\\ronan\\WebstormProjects\\INFO734\\FrontEnd\\p4\\node_modules\\typescript\\lib",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2023.3.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -78,6 +78,7 @@
       <workItem from="1702460071219" duration="2911000" />
       <workItem from="1702558443297" duration="1751000" />
       <workItem from="1702560222650" duration="2872000" />
+      <workItem from="1702565265154" duration="1046000" />
     </task>
     <task id="LOCAL-00001" summary="[FIRST COMMIT]">
       <option name="closed" value="true" />
