@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4f2ebd56-a88f-4bc0-8843-76296e1a47da" name="Changes" comment="[FEATURE] component Token that works a little">
+      <change beforePath="$PROJECT_DIR$/FrontEnd/p4/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/p4/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/p4/src/app/Components/grid/grid.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/p4/src/app/Components/grid/grid.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/p4/src/app/Components/grid/grid.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/p4/src/app/Components/grid/grid.component.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;RonangLeSang&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="4f6c21d2-1fdf-4dca-9858-3bf858e4b1ef" />
+        <option name="url" value="https://github.com/RonangLeSang/INFO734.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2ZTxrHs37enZDv4afX76rOdfA46" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Users\\ronan\\WebstormProjects\\INFO734\\FrontEnd\\p4\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ronan\WebstormProjects\INFO734" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4f2ebd56-a88f-4bc0-8843-76296e1a47da" name="Changes" comment="" />
+      <created>1702460069194</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1702460069194</updated>
+      <workItem from="1702460071219" duration="2911000" />
+      <workItem from="1702558443297" duration="1751000" />
+      <workItem from="1702560222650" duration="2872000" />
+    </task>
+    <task id="LOCAL-00001" summary="[FIRST COMMIT]">
+      <option name="closed" value="true" />
+      <created>1702460555198</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1702460555198</updated>
+    </task>
+    <task id="LOCAL-00002" summary="[FEATURE] component Token">
+      <option name="closed" value="true" />
+      <created>1702462712756</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1702462712756</updated>
+    </task>
+    <task id="LOCAL-00003" summary="[FEATURE] component Token that works a little">
+      <option name="closed" value="true" />
+      <created>1702560000550</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1702560000550</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="[FIRST COMMIT]" />
+    <MESSAGE value="[FEATURE] component Token" />
+    <MESSAGE value="[FEATURE] component Token that works a little" />
+    <option name="LAST_COMMIT_MESSAGE" value="[FEATURE] component Token that works a little" />
+  </component>
+</project>
