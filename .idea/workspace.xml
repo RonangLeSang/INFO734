@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f2ebd56-a88f-4bc0-8843-76296e1a47da" name="Changes" comment="[FEATURE] Model player">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="4f2ebd56-a88f-4bc0-8843-76296e1a47da" name="Changes" comment="[FEATURE] player service" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,7 +84,7 @@
       <workItem from="1702558443297" duration="1751000" />
       <workItem from="1702560222650" duration="2872000" />
       <workItem from="1702565265154" duration="1367000" />
-      <workItem from="1702567826772" duration="1301000" />
+      <workItem from="1702567826772" duration="1630000" />
     </task>
     <task id="LOCAL-00001" summary="[FIRST COMMIT]">
       <option name="closed" value="true" />
@@ -128,7 +126,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702568138686</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="[FEATURE] player service">
+      <option name="closed" value="true" />
+      <created>1702569417598</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1702569417598</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -151,6 +157,7 @@
     <MESSAGE value="[FEATURE] component Token" />
     <MESSAGE value="[FEATURE] component Token that works a little" />
     <MESSAGE value="[FEATURE] Model player" />
-    <option name="LAST_COMMIT_MESSAGE" value="[FEATURE] Model player" />
+    <MESSAGE value="[FEATURE] player service" />
+    <option name="LAST_COMMIT_MESSAGE" value="[FEATURE] player service" />
   </component>
 </project>
