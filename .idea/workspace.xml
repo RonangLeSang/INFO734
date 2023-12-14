@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f2ebd56-a88f-4bc0-8843-76296e1a47da" name="Changes" comment="[FEATURE] component Token that works a little">
-      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="4f2ebd56-a88f-4bc0-8843-76296e1a47da" name="Changes" comment="[FEATURE] component Token that works a little" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,7 +75,7 @@
       <workItem from="1702460071219" duration="2911000" />
       <workItem from="1702558443297" duration="1751000" />
       <workItem from="1702560222650" duration="2872000" />
-      <workItem from="1702565265154" duration="1046000" />
+      <workItem from="1702565265154" duration="1367000" />
     </task>
     <task id="LOCAL-00001" summary="[FIRST COMMIT]">
       <option name="closed" value="true" />
@@ -104,7 +101,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702560000550</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="[FEATURE] component Token that works a little">
+      <option name="closed" value="true" />
+      <created>1702567753720</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1702567753720</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
