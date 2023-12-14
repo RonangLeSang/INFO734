@@ -14,7 +14,7 @@ export class PlayerService {
   // @ts-ignore
   getPlayerById(id: number): Observable<Player> {
 
-    //retourne player ,id ,nom ,nombre win ,nombre game
+    //retourne player id ,nom ,nombre win ,nombre game
 
   }
 }
