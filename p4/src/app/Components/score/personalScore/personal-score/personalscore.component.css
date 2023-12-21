@@ -1,0 +1,22 @@
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+
+td, th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+/* Style des cellules paires */
+td:nth-child(2n), th:nth-child(2n) {
+  background-color: orange;
+}
+
+/* Style des cellules impaires */
+td:nth-child(2n+1), th:nth-child(2n+1) {
+  background-color: yellow;
+}
