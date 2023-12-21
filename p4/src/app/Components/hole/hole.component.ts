@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-hole',
@@ -9,8 +9,24 @@ import { Component } from '@angular/core';
 })
 export class HoleComponent {
 
-  private colorClass : string = "gray"
+  colorClass : string = "gray";
+  @Input() colorNumber!: number;
 
-
+  public set_color(){
+    switch(this.colorNumber) {
+      case 0: {
+        this.colorClass = "gray";
+        break;
+      }
+      case 1: {
+        this.colorClass = "red";
+        break;
+      }
+      case 2: {
+        this.colorClass = "yellow";
+        break;
+      }
+    }
+  };
 
 }

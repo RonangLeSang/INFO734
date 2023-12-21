@@ -1,11 +1,11 @@
 <style>
   :root {
-    --vert-size: 500px;
-    --horiz-size: 800px;
+    --vert-size: 800px;
+    --horiz-size: 1700px;
   }
 
   .background{
-    background-color: gray;
+    /*background-color: gray;*/
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -13,11 +13,10 @@
   }
 
   .grid-background{
-    background-color: #00008c;
-    min-width: 800px;
-    min-height: 500px;
-    max-width: 800px;
-    max-height: 500px;
+    min-width: 1700px;
+    max-width: 1700px;
+    min-height: 800px;
+    max-height: 800px;
     display: flex;
     flex-direction: column;
   }
@@ -26,6 +25,10 @@
 
 <div class="background">
   <div class="grid-background">
-    <app-hole *ngFor="let hole of tab"></app-hole>
+    <div class="canvas">
+      <canvas #myCanvas width="800" height= "600">
+        Your browser does not support the canvas element.
+      </canvas>
+    </div>
   </div>
 </div>
