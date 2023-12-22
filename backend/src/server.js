@@ -123,8 +123,9 @@ try {
 
             // Insert the new document into the "game" collection
             const result = await gamesCollection.insertOne(newGame);
-            session.idGame = await gamesCollection.find(newGame)._id;
-        res.json({ message: 'game successfully creat' });
+                session = req.session;
+                session.idGame = result.insertedId;
+                res.json({session});
     } catch (error) {
         console.error('Error during registration:', error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -149,6 +150,9 @@ try {
             const { move } = req.body;
 
             const user = req.session.userid;
+            console.log(user)
+            const idGame = req.session.idGame;
+            console.log(idGame)
 
             // Find user in the collection
 
@@ -156,14 +160,12 @@ try {
                 return res.status(401).json({ message: 'Invalid username or password' });
             }
 
-            session=req.session;
-            session.userid=req.body.username;
-            res.json({ session });
+
         } catch (error) {
             console.error('Error during login:', error);
             res.status(500).json({ error: 'Internal Server Error' });
         }
-    })
+    });
     app.post('/listGameInWait',async(req,res)=>{
         try{
             const result = await gamesCollection.find({id2:'none'}).toArray();
