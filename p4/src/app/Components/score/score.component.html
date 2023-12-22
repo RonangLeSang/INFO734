@@ -1,1 +1,14 @@
-<p>score works!</p>
+<div class="ligne1">
+  <tr>
+  <th>Name</th>
+  <th>win</th>
+  <th>game</th>
+  <th>top</th>
+
+</tr>
+</div>
+<div class="container" id="card-wrapper">
+
+  <app-personal-score *ngFor="let player of playerList" [playerdata]="player"></app-personal-score>
+</div>
+

@@ -1,3 +1,10 @@
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+
 td, th {
   border: 1px solid #ddd;
   padding: 8px;
@@ -13,10 +20,3 @@ td:nth-child(2n), th:nth-child(2n) {
 td:nth-child(2n+1), th:nth-child(2n+1) {
   background-color: yellow;
 }
-#card-wrapper{
-  display: flex;
-  flex-direction: column;
-  gap: 0; /* Ajustez la valeur selon l'espace souhaité entre les lignes */
-}
-
-

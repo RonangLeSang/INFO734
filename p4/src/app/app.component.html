@@ -1,13 +1,23 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8">
-  <title>p4</title>
-</head>
-<body>
-<app-grid></app-grid>
-</body>
-</html>
+<style>
+  .mainDiv{
+    min-width: 1800px;
+    max-width: 1800px;
+    min-height: 900px;
+    max-height: 900px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+</style>
 
 
-<router-outlet></router-outlet>
+<main>
+  <div class="mainDiv">
+    <app-grid></app-grid>
+  </div>
+
+</main>
+
+  <router-outlet></router-outlet>
