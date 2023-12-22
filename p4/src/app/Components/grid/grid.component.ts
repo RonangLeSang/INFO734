@@ -27,7 +27,7 @@ export class GridComponent implements AfterViewInit {
   pointerY: number = 0;
 
   isYourTurn: boolean = true;
-
+  isYellow: boolean = true;
 
   constructor(){}
 
@@ -65,26 +65,25 @@ export class GridComponent implements AfterViewInit {
     const rect = this.canvas.getBoundingClientRect();
     this.pointerX = event.clientX - rect.left;
     this.pointerY = event.clientY - rect.top;
-    console.log("pos x : " + this.pointerX + "pos y : " + this.pointerY);
   }
 
   detectClick(event: MouseEvent): void {
     this.detectMove(event);
     if(this.isYourTurn){
       // this.isYourTurn = false;
-      if(this.pointerX < 110){
+      if(this.pointerX < 111){
         console.log(0);
-      }else {if (this.pointerX < 220){
+      }else {if (this.pointerX < 222){
         console.log(1);
-      }else {if (this.pointerX < 330){
+      }else {if (this.pointerX < 333){
         console.log(2);
-      }else {if (this.pointerX < 440){
+      }else {if (this.pointerX < 444){
         console.log(3);
-      }else {if (this.pointerX < 550){
+      }else {if (this.pointerX < 555){
         console.log(4);
-      }else {if (this.pointerX < 660){
+      }else {if (this.pointerX < 666){
         console.log(5);
-      }else {if (this.pointerX < 770){
+      }else {if (this.pointerX < 777){
         console.log(6);
     }}}}}}}}
   }
