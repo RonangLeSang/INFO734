@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-const { MongoClient } = require('mongodb');
+const {MongoClient} = require('mongodb');
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 
@@ -21,13 +21,13 @@ const oneDay = 1000 * 60 * 60 * 12;
 //session middleware
 app.use(sessions({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
-    saveUninitialized:true,
-    cookie: { maxAge: oneDay },
+    saveUninitialized: true,
+    cookie: {maxAge: oneDay},
     resave: false
 }));
 // parsing the incoming data
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 
 //serving public file
 app.use(express.static(__dirname));
@@ -54,9 +54,9 @@ try {
     // Register endpoint
     app.post('/register', async (req, res) => {
         try {
-            const { username, password } = req.body;
-            if (await userCollection.findOne({ username })){
-                res.status(400).json({ message: 'User already exist' });
+            const {username, password} = req.body;
+            if (await userCollection.findOne({username})) {
+                res.status(400).json({message: 'User already exist'});
                 return;
             }
 
@@ -65,74 +65,75 @@ try {
 
             // Insert user into the collection
             await userCollection.insertOne({
-                username ,
+                username,
                 password: hashedPassword,
                 gameCount: 0,
-                victoryCount:0,
+                victoryCount: 0,
             });
 
-            res.json({ message: 'User registered successfully' });
+            res.json({message: 'User registered successfully'});
         } catch (error) {
             console.error('Error during registration:', error);
-            res.status(500).json({ error: 'Internal Server Error' });
+            res.status(500).json({error: 'Internal Server Error'});
         }
     });
 
     // Login endpoint
     app.post('/login', async (req, res) => {
         try {
-            const { username, password } = req.body;
+            const {username, password} = req.body;
 
             // Find user in the collection
-            const user = await userCollection.findOne({ username });
+            const user = await userCollection.findOne({username});
 
             if (!user) {
-                return res.status(401).json({ message: 'Invalid username or password' });
+                return res.status(401).json({message: 'Invalid username or password'});
             }
 
             const passwordMatch = await bcrypt.compare(password, user.password);
 
             if (!passwordMatch) {
-                return res.status(401).json({ message: 'Invalid username or password' });
+                return res.status(401).json({message: 'Invalid username or password'});
             }
-
-
-
-
-            session=req.session;
-            session.userid=req.body.username;
-            res.json({ session });
+            session = req.session;
+            session.userid = req.body.username;
+            res.json({session});
         } catch (error) {
             console.error('Error during login:', error);
-            res.status(500).json({ error: 'Internal Server Error' });
+            res.status(500).json({error: 'Internal Server Error'});
         }
     });
-    app.get('/logout',(req,res) => {
+    app.get('/logout', async (req, res) => {
         req.session.destroy();
         res.redirect('/');
     });
 
-    app.post('/createGame',async (req,res) =>{
-        try{
-            const { idPlayer } = req.body;
-            // Create a new document with the specified fields
-            const newGame = {
-            id1: idPlayer,
-            id2: 'none',
-            gray : [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]],
-            nextplayer: 'id1',
-            };
+    app.post('/createGame', async (req, res) => {
+        if (req.session.userid != null) {
+            try {
+                const user = req.session.userid;
+                // Create a new document with the specified fields
+                const newGame = {
+                    id1: user,
+                    id2: 'none',
+                    gray: [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0]],
+                    nextPlayer: 'id1',
+                    winner: 'none',
+                };
 
-            // Insert the new document into the "game" collection
-            const result = await gamesCollection.insertOne(newGame);
-        res.json({ message: 'game successfully creat' });
-    } catch (error) {
-        console.error('Error during registration:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
+                // Insert the new document into the "game" collection
+                const result = await gamesCollection.insertOne(newGame);
+                res.json({message: 'game successfully creat'});
+            } catch (error) {
+                console.error('Error during registration:', error);
+                res.status(500).json({error: 'Internal Server Error'});
+            }
+        } else {
+            res.status(400).json({error: 'you are not logged'});
+        }
 
     });
-    app.post('/logout', (req, res) => {
+    app.post('/logout', async (req, res) => {
         // Destroy the session
         req.session.destroy(err => {
             if (err) {
@@ -143,11 +144,19 @@ try {
             res.send('Logout successful');
         });
     });
-}catch (e){
+    app.post('/listGameInWait',async(req,res)=>{
+        try{
+            const result = await gamesCollection.find({id2:'none'}).toArray();
+            return res.json(result);
+        }catch (error){
+            res.status(500).json({error: 'Internal Server Error'});
+        }
+    })
+} catch (e) {
     console.error(e);
 }
 
-    app.listen(port, () => {
-        console.log(`Server is running on port ${port}`);
-    });
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
 
