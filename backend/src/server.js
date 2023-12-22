@@ -1,10 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const { MongoClient } = require('mongodb');
-const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
+const cookieParser = require("cookie-parser");
+const sessions = require('express-session');
 
 const app = express();
 const port = 3000;
@@ -15,13 +14,27 @@ const adress = "193.48.125.44";
 const url = `mongodb://${user}:${password}@${adress}:27017/?authMechanism=DEFAULT&authSource=admin`;
 const dbName = "puissance4";
 
-app.use(session({
-    secret: 'pommedapi', // Change this to a strong, random key
-    resave: false,
-    saveUninitialized: true,
-    store: new MongoStore({ url: url+"/"+dbName }) // If using MongoDB for session storage
-    }));
-    app.use(bodyParser.json());
+
+// creating 12 hours from milliseconds
+const oneDay = 1000 * 60 * 60 * 12;
+
+//session middleware
+app.use(sessions({
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    saveUninitialized:true,
+    cookie: { maxAge: oneDay },
+    resave: false
+}));
+// parsing the incoming data
+
+app.use(express.urlencoded({ extended: true }));
+
+//serving public file
+app.use(express.static(__dirname));
+app.use(bodyParser.json());
+
+// cookie parser middleware
+app.use(cookieParser());
 
 // Create a new MongoClient
 const client = new MongoClient(url);
@@ -85,15 +98,20 @@ try {
 
 
 
-            // Create a JWT token for authentication
-            const token = jwt.sign({ username: user.username }, 'your-secret-key');
 
-            res.json({ token });
+            session=req.session;
+            session.userid=req.body.username;
+            res.json({ session });
         } catch (error) {
             console.error('Error during login:', error);
             res.status(500).json({ error: 'Internal Server Error' });
         }
     });
+    app.get('/logout',(req,res) => {
+        req.session.destroy();
+        res.redirect('/');
+    });
+
     app.post('/createGame',async (req,res) =>{
         try{
             const { idPlayer } = req.body;
