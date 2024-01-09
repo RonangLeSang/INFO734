@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="homepage.component.css">
+
+<body>
+<div class="titre">
+  Puissance 4
+</div>"
+
+
+
+    <div class="contenu">
+
+
+
+
+
+
+      <img class="userimage" src='user.png'>
+
+      <div class=" contenercadre">
+
+
+        <input class="formulaire" [(ngModel)]="player.login" placeholder="Enter Username" name="uname" required>
+
+      </div>
+      <div class=" contenercadre">
+
+
+        <input class="formulaire" [(ngModel)]="player.mdp" type="password" placeholder="Enter Password" name="psw" required>
+
+      </div>
+      <button class="boutonlogin" (click)="loginClick()">Login</button>
+      <button class="boutonregister" (click)="RegisterClick()">Sign</button>
+
+    </div>
+
+
+</body>
