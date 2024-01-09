@@ -14,7 +14,7 @@ export class GridComponent implements AfterViewInit {
 
   tab: number[][] = [[0,0,0,0,0,0,0],
                     [0,0,0,0,0,0,0],
-                    [0,0,0,0,0,2,0],
+                    [0,0,0,0,0,0,0],
                     [0,0,0,0,0,0,0],
                     [0,0,2,0,1,0,0],
                     [0,1,1,1,2,0,0]];
@@ -23,6 +23,11 @@ export class GridComponent implements AfterViewInit {
 
   context!: CanvasRenderingContext2D | null;
 
+  pointerX: number = 0;
+  pointerY: number = 0;
+
+  isYourTurn: boolean = true;
+  isYellow: boolean = true;
 
   constructor(){}
 
@@ -49,6 +54,38 @@ export class GridComponent implements AfterViewInit {
 
   setGrid(tab: number[][]){
     this.tab = tab;
+  }
+
+  setTurn(turn: boolean){
+    this.isYourTurn = turn;
+  }
+
+  detectMove(event: MouseEvent): void {
+    // Récupérer les coordonnées de la souris par rapport au canvas
+    const rect = this.canvas.getBoundingClientRect();
+    this.pointerX = event.clientX - rect.left;
+    this.pointerY = event.clientY - rect.top;
+  }
+
+  detectClick(event: MouseEvent): void {
+    this.detectMove(event);
+    if(this.isYourTurn){
+      // this.isYourTurn = false;
+      if(this.pointerX < 111){
+        console.log(0);
+      }else {if (this.pointerX < 222){
+        console.log(1);
+      }else {if (this.pointerX < 333){
+        console.log(2);
+      }else {if (this.pointerX < 444){
+        console.log(3);
+      }else {if (this.pointerX < 555){
+        console.log(4);
+      }else {if (this.pointerX < 666){
+        console.log(5);
+      }else {if (this.pointerX < 777){
+        console.log(6);
+    }}}}}}}}
   }
 
   async update() {
