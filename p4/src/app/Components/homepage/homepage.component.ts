@@ -1,8 +1,9 @@
 import {Component, NgModule} from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { connexionService } from 'p4/src/app/Services/connexion.service';
+
 import {Player} from "../../playerModel";
 import {response} from "express";
+import {ConnexionService} from "../../Services/connexion.service";
 @NgModule({
   imports: [
     HttpClientModule
@@ -16,10 +17,10 @@ import {response} from "express";
   styleUrl: './homepage.component.css'
 })
 export class HomepageComponent {
-  constructor(private connexionService: connexionService) {}
+  constructor(private connexionService: ConnexionService) {}
   player:Player = { login: '', mdp: '' };
   registerClick() {
-    this.connexionService.registerUser(this.player).subscribe(
+    this.connexionService.registerPlayer(this.player).subscribe(
       (response: any) => {
         console.log('Inscription réussie', response);
         // Gérez la suite (redirection, messages, etc.)
