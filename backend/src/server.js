@@ -18,6 +18,14 @@ const dbName = "puissance4";
 // creating 12 hours from milliseconds
 const oneDay = 1000 * 60 * 60 * 12;
 
+// grid
+let tab= [[0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0],
+                [0,0,-1,0,1,0,0],
+                [0,1,1,1,-1,0,0]];
+
 //session middleware
 app.use(sessions({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
@@ -38,6 +46,104 @@ app.use(cookieParser());
 
 // Create a new MongoClient
 const client = new MongoClient(url);
+
+
+function getDownLeft(pos){
+    let i = 0;
+    while(tab[pos[0]+i][pos[1]-i] === tab[pos[0]][pos[1]]){
+        i++;
+    }
+    return i;
+}
+
+
+function getUpRight(pos){
+    let i = 0;
+    while(tab[pos[0]-i][pos[1]+i] === tab[pos[0]][pos[1]]){
+        i++;
+    }
+    return i;
+}
+
+
+function diagRL(pos){
+    return (getUpRight(pos) + getDownLeft(pos) + 1) > 3;
+}
+
+
+function getDownRight(pos){
+    let i = 0;
+    while(tab[pos[0]+i][pos[1]+i] === tab[pos[0]][pos[1]]){
+        i++;
+    }
+    return i;
+}
+
+
+function getUpLeft(pos){
+    let i = 0;
+    while(tab[pos[0]-i][pos[1]-i] === tab[pos[0]][pos[1]]){
+        i++;
+    }
+    return i;
+}
+
+
+function diagLR(pos){
+    return (getUpLeft(pos) + getDownRight(pos) + 1) > 3;
+}
+
+
+function getUp(pos){
+    let i = pos[0];
+    while(tab[i+1][pos[1]] === tab[pos[0]][pos[1]]){
+        i++;
+    }
+    return i - pos[0];
+}
+
+
+function getDown(pos){
+    let i = pos[0];
+    while(tab[i-1][pos[1]] === tab[pos[0]][pos[1]]){
+        i--;
+    }
+    return pos[0] - i;
+}
+
+
+function col(pos){
+    return (getUp(pos) + getDown(pos) + 1) > 3;
+}
+
+
+function getRight(pos){
+    let i = pos[1];
+    while(tab[pos[0]][i+1] === tab[pos[0]][pos[1]]){
+        i++;
+    }
+    return i - pos[1];
+}
+
+
+function getLeft(pos){
+    let i = pos[1];
+    while(tab[pos[0]][i-1] === tab[pos[0]][pos[1]]){
+        i--;
+    }
+    return pos[1] - i;
+}
+
+
+function line(pos){
+    return (getLeft(pos) + getRight(pos) + 1) > 3;
+}
+
+
+function isWon(pos){
+    return line(pos) || col(pos) || diagLR(pos) || diagRL(pos);
+}
+
 
 // Use connect method to connect to the server
 try {
@@ -150,20 +256,24 @@ try {
 
             const user = req.session.userid;
 
-            // Find user in the collection
-
             if (!user) {
                 return res.status(401).json({ message: 'Invalid username or password' });
             }
 
-            session=req.session;
-            session.userid=req.body.username;
-            res.json({ session });
+            let playerColor =1;
+
+            for (let i = tab.length-1; i >= 0; i--){
+                if(tab[i][move]===0){
+                    tab[i][move] = playerColor;
+                    isWon([i, move])
+                    break;
+                }
+            }
         } catch (error) {
-            console.error('Error during login:', error);
+            console.error('Error during move:', error);
             res.status(500).json({ error: 'Internal Server Error' });
         }
-    })
+    });
     app.post('/listGameInWait',async(req,res)=>{
         try{
             const result = await gamesCollection.find({id2:'none'}).toArray();

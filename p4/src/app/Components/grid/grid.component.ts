@@ -3,12 +3,9 @@ import {HoleComponent} from "../hole/hole.component";
 
 @Component({
   selector: 'app-grid',
-  standalone: true,
-  imports: [
-    HoleComponent
-  ],
   templateUrl: './grid.component.html',
-  styleUrl: './grid.component.css'
+  standalone: true,
+  styleUrls: ['./grid.component.css']
 })
 export class GridComponent implements AfterViewInit {
 
@@ -16,8 +13,8 @@ export class GridComponent implements AfterViewInit {
                     [0,0,0,0,0,0,0],
                     [0,0,0,0,0,0,0],
                     [0,0,0,0,0,0,0],
-                    [0,0,2,0,1,0,0],
-                    [0,1,1,1,2,0,0]];
+                    [0,0,-1,0,1,0,0],
+                    [0,1,1,1,-1,0,0]];
   @ViewChild('canvas')
   canvas!: HTMLCanvasElement;
 
@@ -28,29 +25,9 @@ export class GridComponent implements AfterViewInit {
 
   isYourTurn: boolean = true;
   isYellow: boolean = true;
-
   constructor(){}
 
   @ViewChild('myCanvas', { static: true }) myCanvas!: ElementRef<HTMLCanvasElement>;
-
-  ngAfterViewInit() {
-    if (this.myCanvas) {
-
-      const canvas: HTMLCanvasElement = this.myCanvas.nativeElement;
-      const context: CanvasRenderingContext2D | null = canvas.getContext('2d');
-      this.canvas = canvas;
-      this.context = context;
-
-
-      if (context) {
-        // Use beginPath and other Canvas API methods
-
-        this.update().then(r => 0)
-      } else {
-        console.error('2D context is null');
-      }
-    }
-  }
 
   setGrid(tab: number[][]){
     this.tab = tab;
@@ -72,20 +49,44 @@ export class GridComponent implements AfterViewInit {
     if(this.isYourTurn){
       // this.isYourTurn = false;
       if(this.pointerX < 111){
-        console.log(0);
+        if(this.tab[0][0] == 0){
+          console.log(0);
+        }
       }else {if (this.pointerX < 222){
-        console.log(1);
+        if(this.tab[0][1] == 0){
+          console.log(1);
+        }
       }else {if (this.pointerX < 333){
-        console.log(2);
+        if(this.tab[0][2] == 0){
+          console.log(2);
+        }
       }else {if (this.pointerX < 444){
-        console.log(3);
+        if(this.tab[0][3] == 0){
+          console.log(3);
+        }
       }else {if (this.pointerX < 555){
-        console.log(4);
+        if(this.tab[0][4] == 0){
+          console.log(4);
+        }
       }else {if (this.pointerX < 666){
-        console.log(5);
+        if(this.tab[0][5] == 0){
+          console.log(5);
+        }
       }else {if (this.pointerX < 777){
-        console.log(6);
+        if(this.tab[0][6] == 0){
+          console.log(6);
+        }
     }}}}}}}}
+  }
+
+  victory(points: number[][]){
+    if (this.context) {
+      this.context.beginPath();
+      for(let i = 0; i < 4; i++){
+        this.context.strokeStyle = "black";
+        this.context.lineTo(points[i][0]*114+55, points[i][1]*80+50);
+      }
+    }
   }
 
   async update() {
@@ -105,7 +106,7 @@ export class GridComponent implements AfterViewInit {
             case 1:
               this.context.fillStyle = "yellow";
               break;
-            case 2:
+            case -1:
               this.context.fillStyle = "red";
               break;
           }
@@ -114,9 +115,33 @@ export class GridComponent implements AfterViewInit {
         }
       }
     }
+    this.victory([[1,2],[1,3],[1,4],[1,5]])
 
     await new Promise(r => setTimeout(r, (1000/30)));
     requestAnimationFrame(() => this.update());
+  }
+
+  ngAfterViewInit() {
+    try {
+      if (this.myCanvas) {
+
+        const canvas: HTMLCanvasElement = this.myCanvas.nativeElement;
+        const context: CanvasRenderingContext2D | null = canvas.getContext('2d');
+        this.canvas = canvas;
+        this.context = context;
+
+
+        if (context) {
+          // Use beginPath and other Canvas API methods
+
+          this.update().then(r => 0)
+        } else {
+          console.error('2D context is null');
+        }
+      }
+    } catch (error) {
+      console.error('Error in ngAfterViewInit:', error);
+    }
   }
 
 }
