@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-const {MongoClient} = require('mongodb');
+const {MongoClient, ObjectId} = require('mongodb');
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 
@@ -84,7 +84,7 @@ try {
             const {username, password} = req.body;
 
             // Find user in the collection
-            const user = await userCollection.findOne({username});
+            const user = await userCollection.findOne({"username":username});
 
             if (!user) {
                 return res.status(401).json({message: 'Invalid username or password'});
@@ -170,6 +170,27 @@ try {
         try{
             const result = await gamesCollection.find({id2:'none'}).toArray();
             return res.json(result);
+        }catch (error){
+            res.status(500).json({error: 'Internal Server Error'});
+        }
+    });
+    app.post('/joinGame',async(req,res)=>{
+        try{
+            const { idGame } = req.body;
+            const user = req.session.userid;
+            const id = new ObjectId(idGame)
+            const game = await gamesCollection.findOne({_id: id});
+            console.log(user);
+            if(user !== undefined && user !== game.id1) {
+                await gamesCollection.updateOne(
+                    {_id: id},  // Filtrez le document que vous souhaitez mettre à jour
+                    {$set: {"id2": user}}
+                );
+                return res.json(idGame);
+            }else {
+                res.status(500).json({error: "you can't join game"});
+            }
+
         }catch (error){
             res.status(500).json({error: 'Internal Server Error'});
         }
