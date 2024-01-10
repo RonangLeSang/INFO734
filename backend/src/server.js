@@ -260,11 +260,11 @@ try {
             // const tab = await gamesCollection.findOne({_id: idGame});
 
             let tab = [[0,0,0,0,0,0,0],
-                            [0,0,0,0,0,0,0],
-                            [0,0,0,1,0,0,0],
-                            [0,0,0,-1,0,0,0],
-                            [0,1,-1,-1,0,0,0],
-                            [1,2,-1,-1,0,0,0]];
+                [0,0,0,0,0,0,0],
+                [0,0,0,1,0,0,0],
+                [0,0,0,-1,0,0,0],
+                [0,1,-1,-1,0,0,0],
+                [1,1,-1,-1,0,0,0]];
 
             let playerColor =1;
 
@@ -277,6 +277,28 @@ try {
                     break;
                 }
             }
+            res.json({ grid: tab });
+        } catch (error) {
+            console.error('Error during move:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    });
+    app.post('/getGrid',async (req, res) => {
+        try {
+            // const idGame = req.session.idGame;
+            // console.log(idGame)
+
+            // Find user in the collection
+
+            // const tab = await gamesCollection.findOne({_id: idGame});
+
+            let tab = [[0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0],
+                [0,0,0,1,0,0,0],
+                [0,0,0,-1,0,0,0],
+                [0,1,-1,-1,0,0,0],
+                [1,1,-1,-1,0,0,0]];
+
             res.json({ grid: tab });
         } catch (error) {
             console.error('Error during move:', error);
