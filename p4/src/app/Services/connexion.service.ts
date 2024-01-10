@@ -20,6 +20,7 @@ export class ConnexionService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
+
     const url = `${this.apiUrl}makeAMove`;
     const requestBody = { move: pos };
     return this.http.post(url, requestBody, { headers }).pipe(
