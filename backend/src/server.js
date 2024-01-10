@@ -292,28 +292,31 @@ try {
         }
     });
     app.post('/joinGame',async(req,res)=>{
-        try{
-            const { idGame } = req.body;
+        let session;
+        try {
+            const {idGame} = req.body;
             const user = req.session.userid;
             const id = new ObjectId(idGame)
             const game = await gamesCollection.findOne({_id: id});
             console.log(user);
-            if(user !== undefined && user !== game.id1) {
+            if (user !== undefined && user !== game.id1) {
                 await gamesCollection.updateOne(
                     {_id: id},  // Filtrez le document que vous souhaitez mettre à jour
                     {$set: {"id2": user}}
                 );
+                session = req.session;
+                session.idGame = idGame;
                 return res.json(idGame);
-            }else {
+            } else {
                 res.status(500).json({error: "you can't join game"});
             }
 
-        }catch (error){
+        } catch (error) {
             res.status(500).json({error: 'Internal Server Error'});
         }
     });
     app.post('/isMyTurn', async(req,res)=>{
-        const { idGame } = req.body;
+        const idGame= req.session.idGame;
         const user = req.session.userid;
         const id = new ObjectId(idGame)
         const game = await gamesCollection.findOne({_id: id});

@@ -1,1 +1,9 @@
-<p>listgame works!</p>
+<div class="list-games">
+  <h2>Liste des jeux</h2>
+  <ul>
+    <li *ngFor="let game of games">
+      <span>adversaire: {{ game.id1 }}</span>
+      <button (click)="joinGame(game._id)">Rejoindre le jeu</button>
+    </li>
+  </ul>
+</div>
