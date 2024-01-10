@@ -15,7 +15,7 @@ export class ListGameService {
     const url = `${this.apiUrl}listGameInWait`;
     const requestBody = {};
     return this.http.post(url, requestBody, { headers }).pipe(
-      map((data: any) => data.grid)
+      map((data: any) => data)
     );
   }
 }
