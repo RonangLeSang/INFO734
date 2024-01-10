@@ -223,7 +223,8 @@ try {
                     id1: user,
                     id2: 'none',
                     gray: [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0]],
-                    nextPlayer: 'id1',
+                    countTurn : 0,
+                    nextPlayer: user,
                     winner: 'none',
                 };
 
@@ -308,6 +309,20 @@ try {
 
         }catch (error){
             res.status(500).json({error: 'Internal Server Error'});
+        }
+    });
+    app.post('/isMyTurn', async(req,res)=>{
+        const { idGame } = req.body;
+        const user = req.session.userid;
+        const id = new ObjectId(idGame)
+        const game = await gamesCollection.findOne({_id: id});
+        if(user === game.id1 || user === game.id2){
+            if(game.nextPlayer === user){
+                return res.json(game);
+            }else {
+                return res.status(401).json({message: 'Not your turn'});
+            }}else{
+            return res.status(401).json({message: 'Not in game'});
         }
     })
 } catch (e) {
