@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: blue;
+}
+
+.play{
+  color: blue;
+}
+.page{
+  background-color: blue;
+
+}
+.barre{
+  background-color: yellow;
+  color: black;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+.conteneur-centre {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.score{
+  background-color: yellow;
+  height: 25vw;
+  width: 25vw;
+  box-shadow:0px 0px 15px red ;
+}
+.play {
+  margin-top: 10px;
+  font-size: 20px; /* Ajustez la taille du texte pour agrandir le bouton */
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  color: black;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0px 0px 15px white;
+  font-family: Impact, sans-serif;
+
+  font-weight: bold; /* Gras */
+  text-decoration: underline; /* Souligné */
+}
