@@ -25,6 +25,12 @@ export class HomepageComponent {
 
 
   loginClick() {
+    this.connexionService.loginPlayer(this.player).subscribe(
+      (response: any) => {
+        console.log('Inscription réussie', response);
+        // Gérez la suite (redirection, messages, etc.)
+      }
+    );
 
   }
 
