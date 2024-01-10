@@ -13,20 +13,19 @@ import {NgForOf} from "@angular/common";
   styleUrl: './listgame.component.css'
 })
 export class ListgameComponent {
-  games: any;
+  games: Game[] | undefined;
   constructor(private listGameService: ListGameService) {}
 
   ngOnInit(): void {
     this.listGameService.getListGame()
       .subscribe(( data: any) => {
-        console.log(data);
         this.games = data;
       }, error => {
         console.error('Failed to get games:', error);
       });
   }
 
-  joinGame(_id: Object) {
+  joinGame(idGame: any) {
 
   }
 }

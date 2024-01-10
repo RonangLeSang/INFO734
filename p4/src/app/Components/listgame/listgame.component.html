@@ -3,7 +3,7 @@
   <ul>
     <li *ngFor="let game of games">
       <span>adversaire: {{ game.id1 }}</span>
-      <button (click)="joinGame(game._id)">Rejoindre le jeu</button>
+      <button (click)="joinGame(game.idGame)">Rejoindre le jeu</button>
     </li>
   </ul>
 </div>

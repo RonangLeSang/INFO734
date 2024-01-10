@@ -1,37 +1,12 @@
-<link rel="stylesheet" href="homepage.component.css">
+<div class="login-container">
+  <h2>Homepage</h2>
+  <form (ngSubmit)="login()">
+    <label for="username">Username:</label>
+    <input type="text" id="username" [(ngModel)]="user" [ngModelOptions]="{standalone: true}" required placeholder="Enter your username">
 
-<body>
-<div class="titre">
-  Puissance 4
-</div>"
+    <label for="password">Password:</label>
+    <input type="password" id="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" required placeholder="Enter your password">
 
-
-
-    <div class="contenu">
-
-
-
-
-
-
-      <img class="userimage" src='user.png'>
-
-      <div class=" contenercadre">
-
-
-
-
-      </div>
-      <div class=" contenercadre">
-
-
-
-
-      </div>
-      <button class="boutonlogin" (click)="loginClick()">Login</button>
-
-
-    </div>
-
-
-</body>
+    <button type="submit">Login</button>
+  </form>
+</div>

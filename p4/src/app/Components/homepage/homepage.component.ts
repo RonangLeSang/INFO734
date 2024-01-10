@@ -1,35 +1,37 @@
-import {Component,  OnInit} from '@angular/core';
-
-import { CommonModule } from '@angular/common';
-import {Player} from "../../playerModel";
-
-import {ConnexionService} from "../../Services/connexion.service";
-
-
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ConnexionService } from '../../Services/connexion.service';
+import {FormsModule} from "@angular/forms";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
-  selector: 'app-homepage',
-  standalone: true,
-  imports: [CommonModule],
+  selector: 'app-login',
   templateUrl: './homepage.component.html',
-  styleUrl: './homepage.component.css'
+  standalone: true,
+  imports: [
+    FormsModule
+  ],
+  styleUrls: ['./homepage.component.css']
 })
-export class HomepageComponent implements OnInit{
-  constructor(private connexionService: ConnexionService) {}
-  player:Player = { login: '', mdp: '' };
+export class HomepageComponent implements OnInit {
 
+  @Input() user!: string;
+  @Input()
+  password!: string;
 
-  ngOnInit() {}
+  @Output() loginSuccess = new EventEmitter<number[][]>();
 
-  loginClick() {
-    this.connexionService.loginPlayer(this.player).subscribe((player: Player) => {
-      console.log('Login successful', player);
-      // Handle login success
-    });
+  constructor(private connexionService: ConnexionService,private cookie:CookieService) {}
 
+  ngOnInit(): void {
   }
 
-
-
-
+  login(): void {
+    this.connexionService.login(this.user, this.password).
+    subscribe((response: string) => {
+      this.cookie.set('cookie',response);
+      console.log(response);
+    }), (error: any) => {
+        console.error('Login error:', error);
+      };
+  }
 }
