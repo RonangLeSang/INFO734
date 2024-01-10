@@ -11,8 +11,8 @@ export class GridService {
 
   constructor(private http: HttpClient) {}
 
-  getGrid(): Observable<number[][]> {
-    const url = `${this.apiUrl}GetGrid`;
+  isMyTurn(): Observable<number[][]> {
+    const url = `${this.apiUrl}isMyTurn`;
     return this.http.get(url).pipe(
       map((data: any) => data.grid)
     );
@@ -22,9 +22,13 @@ export class GridService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
+    // Include the 'withCredentials' option to enable sending and receiving cookies
+    const options = { headers, withCredentials: true };
+
     const url = `${this.apiUrl}makeAMove`;
     const requestBody = { move: pos };
-    return this.http.post(url, requestBody, { headers }).pipe(
+
+    return this.http.post(url, requestBody, options).pipe(
       map((data: any) => data.grid)
     );
   }
