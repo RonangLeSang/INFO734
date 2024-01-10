@@ -275,6 +275,7 @@ try {
                     break;
                 }
             }
+            res.json(tab)
         } catch (error) {
             console.error('Error during move:', error);
             res.status(500).json({ error: 'Internal Server Error' });

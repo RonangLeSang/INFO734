@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {HoleComponent} from "../hole/hole.component";
+import {GridService} from "../../Services/grid.service";
 
 @Component({
   selector: 'app-grid',
@@ -25,7 +26,7 @@ export class GridComponent implements AfterViewInit {
 
   isYourTurn: boolean = true;
   isYellow: boolean = true;
-  constructor(){}
+  constructor(private gridService: GridService) {}
 
   @ViewChild('myCanvas', { static: true }) myCanvas!: ElementRef<HTMLCanvasElement>;
 
@@ -37,6 +38,12 @@ export class GridComponent implements AfterViewInit {
     this.isYourTurn = turn;
   }
 
+  makeMove(pos: number) {
+    this.gridService.makeAMove(pos).subscribe((updatedGrid: number[][]) => {
+      this.setGrid(updatedGrid);
+    });
+  }
+
   detectMove(event: MouseEvent): void {
     // Récupérer les coordonnées de la souris par rapport au canvas
     const rect = this.canvas.getBoundingClientRect();
@@ -46,38 +53,17 @@ export class GridComponent implements AfterViewInit {
 
   detectClick(event: MouseEvent): void {
     this.detectMove(event);
-    if(this.isYourTurn){
-      // this.isYourTurn = false;
-      if(this.pointerX < 111){
-        if(this.tab[0][0] == 0){
-          console.log(0);
-        }
-      }else {if (this.pointerX < 222){
-        if(this.tab[0][1] == 0){
-          console.log(1);
-        }
-      }else {if (this.pointerX < 333){
-        if(this.tab[0][2] == 0){
-          console.log(2);
-        }
-      }else {if (this.pointerX < 444){
-        if(this.tab[0][3] == 0){
-          console.log(3);
-        }
-      }else {if (this.pointerX < 555){
-        if(this.tab[0][4] == 0){
-          console.log(4);
-        }
-      }else {if (this.pointerX < 666){
-        if(this.tab[0][5] == 0){
-          console.log(5);
-        }
-      }else {if (this.pointerX < 777){
-        if(this.tab[0][6] == 0){
-          console.log(6);
-        }
-    }}}}}}}}
+
+    if (this.isYourTurn) {
+      const column = Math.floor(this.pointerX / 111);
+
+      if (column >= 0 && column < this.tab[0].length && this.tab[0][column] === 0) {
+        console.log(column);
+        this.makeMove(column);
+      }
+    }
   }
+
 
   victory(points: number[][]){
     if (this.context) {
@@ -119,6 +105,12 @@ export class GridComponent implements AfterViewInit {
 
     await new Promise(r => setTimeout(r, (1000/30)));
     requestAnimationFrame(() => this.update());
+  }
+
+  ngOnInit() {
+    this.gridService.getGrid().subscribe((grid: number[][]) => {
+      this.setGrid(grid);
+    });
   }
 
   ngAfterViewInit() {
