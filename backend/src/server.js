@@ -326,20 +326,28 @@ try {
             res.status(500).json({error: 'Internal Server Error'});
         }
     });
-    app.post('/isMyTurn', async(req,res)=>{
-        const idGame= req.session.idGame;
+    app.get('/isMyTurn', async (req, res) => {
+        const idGame = req.session.idGame;
         const user = req.session.userid;
-        const id = new ObjectId(idGame)
-        const game = await gamesCollection.findOne({_id: id});
-        if(user === game.id1 || user === game.id2){
-            if(game.nextPlayer === user){
-                return res.json(game["gray"]);
-            }else {
-                return res.status(401).json({message: 'Not your turn'});
-            }}else{
-            return res.status(401).json({message: 'Not in game'});
+        const id = new ObjectId(idGame);
+
+        try {
+            const game = await gamesCollection.findOne({ _id: id });
+
+            if (user === game.id1 || user === game.id2) {
+                if (game.nextPlayer === user) {
+                    return res.json({ isMyTurn: true, grid: game.gray, session: req.session });
+                } else {
+                    return res.json({ isMyTurn: false, message: 'Not your turn', session: req.session });
+                }
+            } else {
+                return res.status(401).json({ isMyTurn: false, message: 'Not in the game', session: req.session });
+            }
+        } catch (error) {
+            console.error('Error checking turn:', error);
+            return res.status(500).json({ error: 'Internal Server Error', session: req.session });
         }
-    })
+    });
 } catch (e) {
     console.error(e);
 }

@@ -27,13 +27,19 @@ export class HomepageComponent implements OnInit {
   }
 
   login(): void {
-    this.connexionService.login(this.user, this.password).
-    subscribe((response: string) => {
-      this.cookie.set('cookie',response);
-      this.router.navigate(['/list']);
-      console.log(response);
-    }), (error: any) => {
+    this.connexionService.login(this.user, this.password).subscribe(
+      (response: any) => {
+        // Assuming the response contains the session information, adjust accordingly
+        const sessionData = response.session;
+
+        // Store the session information in localStorage
+        localStorage.setItem('session', JSON.stringify(sessionData));
+        this.router.navigate(['/list']);
+        console.log('Login successful. Session data:', sessionData);
+      },
+      (error: any) => {
         console.error('Login error:', error);
-      };
+      }
+    );
   }
 }

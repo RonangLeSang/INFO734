@@ -1,6 +1,8 @@
 import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {HoleComponent} from "../hole/hole.component";
 import {GridService} from "../../Services/grid.service";
+import {response} from "express";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-grid',
@@ -25,7 +27,7 @@ export class GridComponent implements AfterViewInit {
   pointerY: number = 0;
 
   isYourTurn: boolean = true;
-  constructor(private gridService: GridService) {}
+  constructor(private gridService: GridService, private cookie:CookieService) {}
 
   @ViewChild('myCanvas', { static: true }) myCanvas!: ElementRef<HTMLCanvasElement>;
 
@@ -133,12 +135,13 @@ export class GridComponent implements AfterViewInit {
 
 
   isMyTurn() {
-    console.log("uodate");
+    console.log("update");
     this.gridService.isMyTurn().subscribe((updatedGrid: number[][] | null) => {
       if(updatedGrid) {
         console.log(updatedGrid);
         if (updatedGrid) {
           this.setGrid(updatedGrid);
+          this.setTurn(true);
         } else {
           console.error('Invalid response format: "grid" property is missing.');
         }
