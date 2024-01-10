@@ -307,9 +307,10 @@ try {
     });
     app.post('/listGameInWait',async(req,res)=>{
         try{
+            //id1: { $ne: user }
 
             const user = req.session.userid;
-            const result = await gamesCollection.find({id2:'none',id1: { $ne: user }}).toArray();
+            const result = await gamesCollection.find({id2:'none',}).toArray();
             return res.json(result);
         }catch (error){
             res.status(500).json({error: 'Internal Server Error'});
