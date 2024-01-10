@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ConnexionService } from '../../Services/connexion.service';
 import {FormsModule} from "@angular/forms";
 import {CookieService} from "ngx-cookie-service";
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './homepage.component.html',
@@ -20,7 +20,8 @@ export class HomepageComponent implements OnInit {
 
   @Output() loginSuccess = new EventEmitter<number[][]>();
 
-  constructor(private connexionService: ConnexionService,private cookie:CookieService) {}
+
+  constructor(private connexionService: ConnexionService,private cookie:CookieService, private router: Router) {}
 
   ngOnInit(): void {
   }
@@ -33,7 +34,7 @@ export class HomepageComponent implements OnInit {
 
         // Store the session information in localStorage
         localStorage.setItem('session', JSON.stringify(sessionData));
-
+        this.router.navigate(['/list']);
         console.log('Login successful. Session data:', sessionData);
       },
       (error: any) => {

@@ -1,9 +1,16 @@
+<body>
+<div class="barreoption">
+  truc a afficher de l'user
+  <button class="deconnecter">déconnecter</button>
+</div>
 <div class="list-games">
-  <h2>Liste des jeux</h2>
+  <h2 class="titre">Liste des Parties</h2>
   <ul>
     <li *ngFor="let game of games">
-      <span>adversaire: {{ game.id1 }}</span>
-      <button (click)="joinGame(game.idGame)">Rejoindre le jeu</button>
+
+      <button class="join" (click)="joinGame(game.idGame)">Jouer contre{{ game.id1 }}</button>
     </li>
   </ul>
+  <button class="annuler">Annuler</button>
 </div>
+</body>

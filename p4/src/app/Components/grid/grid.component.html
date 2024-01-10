@@ -1,36 +1,13 @@
-<style>
-  :root {
-    --vert-size: 800px;
-    --horiz-size: 1700px;
-  }
+<link rel="stylesheet" href="grid.component.css">
 
-  .background{
-    /*background-color: gray;*/
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .grid-background{
-    position: absolute;
-    top: 100px; left: 200px;
-    min-width: 1700px;
-    max-width: 1700px;
-    min-height: 800px;
-    max-height: 800px;
-    display: flex;
-    flex-direction: column;
-  }
-
-</style>
-
-<div class="background">
-  <div class="grid-background">
-    <div class="canvas">
-      <canvas #myCanvas width="800" height= "600" (click)="detectClick($event)">
+<div class="barreoption">
+  info player genre nom et nbr victoire
+  <button class="deconnecter">Déconnecter</button>
+</div>
+<div class="titre">Puissance 4</div>
+<div class="canva">
+  <canvas #myCanvas width="800" height= "600" (click)="detectClick($event)">
         Your browser does not support the canvas element.
       </canvas>
-    </div>
-  </div>
 </div>
+
