@@ -22,25 +22,21 @@ export class HomepageComponent {
   player:Player = { login: '', mdp: '' };
 
 
-
+  ngOnInit() {}
 
   loginClick() {
-    this.connexionService.loginPlayer(this.player).subscribe(
-      (response: any) => {
-        console.log('Inscription réussie', response);
-        // Gérez la suite (redirection, messages, etc.)
-      }
-    );
+    this.connexionService.loginPlayer(this.player).subscribe((player: Player) => {
+      console.log('Login successful', player);
+      // Handle login success
+    });
 
   }
 
   RegisterClick() {
-    this.connexionService.registerPlayer(this.player).subscribe(
-      (response: any) => {
-        console.log('Inscription réussie', response);
-        // Gérez la suite (redirection, messages, etc.)
-      }
-    );
+    this.connexionService.registerPlayer(this.player).subscribe((player: Player) => {
+      console.log('Registration successful', player);
+      // Handle registration success
+    });
 
   }
 }
