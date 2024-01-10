@@ -40,12 +40,6 @@ app.use(cookieParser());
 // Create a new MongoClient
 const client = new MongoClient(url);
 
-
-
-// Use CORS middleware
-app.use(cors());
-
-
 function getDownLeft(pos, tab) {
     let i = 0;
     while (pos[0] + i < 6 && pos[1] - i > -1 && tab[pos[0] + i][pos[1] - i] === tab[pos[0]][pos[1]]) {
@@ -147,6 +141,12 @@ try {
     const userCollection = db.collection('users');
     const gamesCollection = db.collection('games');
 
+
+    app.use(cors({
+        origin: 'http://localhost:4200', // replace with your Angular app's domain
+        credentials: true,
+    }));
+
     // Register endpoint
     app.post('/register', async (req, res) => {
         try {
@@ -203,7 +203,6 @@ try {
         req.session.destroy();
         res.redirect('/');
     });
-
     app.post('/createGame', async (req, res) => {
         if (req.session.userid != null) {
             try {
@@ -292,28 +291,6 @@ try {
             res.status(500).json({ error: 'Internal Server Error' });
         }
     });
-    app.post('/getGrid',async (req, res) => {
-        try {
-            // const idGame = req.session.idGame;
-            // console.log(idGame)
-
-            // Find user in the collection
-
-            // const tab = await gamesCollection.findOne({_id: idGame});
-
-            let tab = [[0,0,0,0,0,0,0],
-                [0,0,0,0,0,0,0],
-                [0,0,0,1,0,0,0],
-                [0,0,0,-1,0,0,0],
-                [0,1,-1,-1,0,0,0],
-                [1,1,-1,-1,0,0,0]];
-
-            res.json({ grid: tab });
-        } catch (error) {
-            console.error('Error during move:', error);
-            res.status(500).json({ error: 'Internal Server Error' });
-        }
-    });
     app.post('/listGameInWait',async(req,res)=>{
         try{
             //id1: { $ne: user }
@@ -356,7 +333,7 @@ try {
         const game = await gamesCollection.findOne({_id: id});
         if(user === game.id1 || user === game.id2){
             if(game.nextPlayer === user){
-                return res.json(game);
+                return res.json(game["gray"]);
             }else {
                 return res.status(401).json({message: 'Not your turn'});
             }}else{

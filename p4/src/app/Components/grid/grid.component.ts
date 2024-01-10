@@ -25,7 +25,6 @@ export class GridComponent implements AfterViewInit {
   pointerY: number = 0;
 
   isYourTurn: boolean = true;
-  isYellow: boolean = true;
   constructor(private gridService: GridService) {}
 
   @ViewChild('myCanvas', { static: true }) myCanvas!: ElementRef<HTMLCanvasElement>;
@@ -39,6 +38,7 @@ export class GridComponent implements AfterViewInit {
   }
 
   makeMove(move: number) {
+    this.setTurn(false);
     this.gridService.makeAMove(move).subscribe((updatedGrid: number[][]) => {
       console.log(updatedGrid);
       if (updatedGrid) {
@@ -88,6 +88,7 @@ export class GridComponent implements AfterViewInit {
   }
 
   async update() {
+    this.isMyTurn();
     if (this.context) {
       this.context.clearRect(0,0,800,500)
       // Your drawing code using this.context
@@ -118,7 +119,7 @@ export class GridComponent implements AfterViewInit {
       }
     }
 
-    await new Promise(r => setTimeout(r, (1000/10)));
+    await new Promise(r => setTimeout(r, (1000)));
     requestAnimationFrame(() => this.update());
   }
 
@@ -129,6 +130,24 @@ export class GridComponent implements AfterViewInit {
       }
     });
   }
+
+
+  isMyTurn() {
+    console.log("uodate");
+    this.gridService.isMyTurn().subscribe((updatedGrid: number[][] | null) => {
+      if(updatedGrid) {
+        console.log(updatedGrid);
+        if (updatedGrid) {
+          this.setGrid(updatedGrid);
+        } else {
+          console.error('Invalid response format: "grid" property is missing.');
+        }
+      }
+    }, error => {
+      console.error('Error making a move:', error);
+    });
+  }
+
 
   ngAfterViewInit() {
     try {
