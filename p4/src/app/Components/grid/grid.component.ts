@@ -38,9 +38,16 @@ export class GridComponent implements AfterViewInit {
     this.isYourTurn = turn;
   }
 
-  makeMove(pos: number) {
-    this.gridService.makeAMove(pos).subscribe((updatedGrid: number[][]) => {
-      this.setGrid(updatedGrid);
+  makeMove(move: number) {
+    this.gridService.makeAMove(move).subscribe((updatedGrid: number[][]) => {
+      console.log(updatedGrid);
+      if (updatedGrid) {
+        this.setGrid(updatedGrid);
+      } else {
+        console.error('Invalid response format: "grid" property is missing.');
+      }
+    }, error => {
+      console.error('Error making a move:', error);
     });
   }
 
@@ -59,21 +66,21 @@ export class GridComponent implements AfterViewInit {
 
       if (column >= 0 && column < this.tab[0].length && this.tab[0][column] === 0) {
         console.log(column);
-        // this.makeMove(column);
+        this.makeMove(column);
       }
     }
   }
 
 
-  victory(points: number[][]){
-    if (this.context) {
-      this.context.beginPath();
-      for(let i = 0; i < 4; i++){
-        this.context.strokeStyle = "black";
-        this.context.lineTo(points[i][0]*114+55, points[i][1]*80+50);
-      }
-    }
-  }
+  // victory(points: number[][]){
+  //   if (this.context) {
+  //     this.context.beginPath();
+  //     for(let i = 0; i < 4; i++){
+  //       this.context.strokeStyle = "black";
+  //       this.context.lineTo(points[i][0]*114+55, points[i][1]*80+50);
+  //     }
+  //   }
+  // }
 
   async update() {
     if (this.context) {
@@ -101,9 +108,9 @@ export class GridComponent implements AfterViewInit {
         }
       }
     }
-    this.victory([[1,2],[1,3],[1,4],[1,5]])
+    // this.victory([[1,2],[1,3],[1,4],[1,5]])
 
-    await new Promise(r => setTimeout(r, (1000/30)));
+    await new Promise(r => setTimeout(r, (1000/10)));
     requestAnimationFrame(() => this.update());
   }
 

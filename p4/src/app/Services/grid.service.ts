@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import {map, Observable} from "rxjs";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {map, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +19,12 @@ export class GridService {
   }
 
   makeAMove(pos: number): Observable<number[][]> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
     const url = `${this.apiUrl}makeAMove`;
-    const requestBody = { position: pos };
-    return this.http.post(url, requestBody).pipe(
+    const requestBody = { move: pos };
+    return this.http.post(url, requestBody, { headers }).pipe(
       map((data: any) => data.grid)
     );
   }

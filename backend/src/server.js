@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 
 const app = express();
+const cors = require('cors');
 const port = 3000;
 const user = "lblin";
 const password = "info734";
@@ -38,6 +39,11 @@ app.use(cookieParser());
 
 // Create a new MongoClient
 const client = new MongoClient(url);
+
+
+
+// Use CORS middleware
+app.use(cors());
 
 
 function getDownLeft(pos){
@@ -248,29 +254,37 @@ try {
         try {
             const { move } = req.body;
 
-            const user = req.session.userid;
-            console.log(user)
-            const idGame = req.session.idGame;
-            console.log(idGame)
+            // const user = req.session.userid;
+            // console.log(user)
+            // const idGame = req.session.idGame;
+            // console.log(idGame)
 
             // Find user in the collection
 
-            if (!user) {
-                return res.status(401).json({ message: 'Invalid username or password' });
-            }
+            // if (!user) {
+            //     return res.status(401).json({ message: 'Invalid username or password' });
+            // }
+            //
+            // const tab = await gamesCollection.findOne({_id: idGame});
 
-            const tab = await gamesCollection.findOne({_id: idGame});
+            let tab = [[0,0,0,0,0,0,0],
+                            [0,0,0,0,0,0,0],
+                            [0,0,0,0,0,0,0],
+                            [0,0,0,0,0,0,0],
+                            [0,0,-1,0,1,0,0],
+                            [0,1,1,1,-1,0,0]];
 
             let playerColor =1;
 
             for (let i = tab.length-1; i >= 0; i--){
+                console.log(tab[i][move])
                 if(tab[i][move]===0){
                     tab[i][move] = playerColor;
-                    isWon([i, move])
+                    // isWon([i, move])
                     break;
                 }
             }
-            res.json(tab)
+            res.json({ grid: tab });
         } catch (error) {
             console.error('Error during move:', error);
             res.status(500).json({ error: 'Internal Server Error' });
@@ -323,7 +337,8 @@ try {
     console.error(e);
 }
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
 });
 
