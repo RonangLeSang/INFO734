@@ -18,14 +18,6 @@ const dbName = "puissance4";
 // creating 12 hours from milliseconds
 const oneDay = 1000 * 60 * 60 * 12;
 
-// grid
-let tab= [[0,0,0,0,0,0,0],
-                [0,0,0,0,0,0,0],
-                [0,0,0,0,0,0,0],
-                [0,0,0,0,0,0,0],
-                [0,0,-1,0,1,0,0],
-                [0,1,1,1,-1,0,0]];
-
 //session middleware
 app.use(sessions({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
@@ -266,6 +258,8 @@ try {
             if (!user) {
                 return res.status(401).json({ message: 'Invalid username or password' });
             }
+
+            const tab = await gamesCollection.findOne({_id: idGame});
 
             let playerColor =1;
 

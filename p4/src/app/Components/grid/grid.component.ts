@@ -26,7 +26,9 @@ export class GridComponent implements AfterViewInit {
 
   isYourTurn: boolean = true;
   isYellow: boolean = true;
-  constructor(private gridService: GridService) {}
+  constructor() {}
+
+  //private gridService: GridService
 
   @ViewChild('myCanvas', { static: true }) myCanvas!: ElementRef<HTMLCanvasElement>;
 
@@ -38,11 +40,11 @@ export class GridComponent implements AfterViewInit {
     this.isYourTurn = turn;
   }
 
-  makeMove(pos: number) {
-    this.gridService.makeAMove(pos).subscribe((updatedGrid: number[][]) => {
-      this.setGrid(updatedGrid);
-    });
-  }
+  // makeMove(pos: number) {
+  //   this.gridService.makeAMove(pos).subscribe((updatedGrid: number[][]) => {
+  //     this.setGrid(updatedGrid);
+  //   });
+  // }
 
   detectMove(event: MouseEvent): void {
     // Récupérer les coordonnées de la souris par rapport au canvas
@@ -59,7 +61,7 @@ export class GridComponent implements AfterViewInit {
 
       if (column >= 0 && column < this.tab[0].length && this.tab[0][column] === 0) {
         console.log(column);
-        this.makeMove(column);
+        // this.makeMove(column);
       }
     }
   }
@@ -107,11 +109,11 @@ export class GridComponent implements AfterViewInit {
     requestAnimationFrame(() => this.update());
   }
 
-  ngOnInit() {
-    this.gridService.getGrid().subscribe((grid: number[][]) => {
-      this.setGrid(grid);
-    });
-  }
+  // ngOnInit() {
+  //   this.gridService.getGrid().subscribe((grid: number[][]) => {
+  //     this.setGrid(grid);
+  //   });
+  // }
 
   ngAfterViewInit() {
     try {

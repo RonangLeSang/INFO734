@@ -11,16 +11,16 @@ export class GridService {
 
   constructor(private http: HttpClient) {}
 
-  getGrid(): Observable<number[][]> {
-    const url = `${this.apiUrl}GetGrid`;
-    return this.http.get(url).pipe(
-      map((data: any) => data.grid)
-    );
-  }
+  // getGrid(): Observable<number[][]> {
+  //   const url = `${this.apiUrl}GetGrid`;
+  //   return this.http.get(url).pipe(
+  //     map((data: any) => data.grid)
+  //   );
+  // }
 
   makeAMove(pos: number): Observable<number[][]> {
     const url = `${this.apiUrl}makeAMove`;
-    const requestBody = { position: pos }; // Assuming you need to send the position to the server
+    const requestBody = { position: pos };
     return this.http.post(url, requestBody).pipe(
       map((data: any) => data.grid)
     );
