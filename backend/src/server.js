@@ -46,100 +46,94 @@ const client = new MongoClient(url);
 app.use(cors());
 
 
-function getDownLeft(pos){
+function getDownLeft(pos, tab) {
     let i = 0;
-    while(tab[pos[0]+i][pos[1]-i] === tab[pos[0]][pos[1]]){
+    while (pos[0] + i < 6 && pos[1] - i > -1 && tab[pos[0] + i][pos[1] - i] === tab[pos[0]][pos[1]]) {
         i++;
     }
     return i;
 }
 
-
-function getUpRight(pos){
+function getUpRight(pos, tab) {
     let i = 0;
-    while(tab[pos[0]-i][pos[1]+i] === tab[pos[0]][pos[1]]){
+    while (pos[0] - i > -1 && pos[1] + i < 7 && tab[pos[0] - i][pos[1] + i] === tab[pos[0]][pos[1]]) {
         i++;
     }
     return i;
 }
 
-
-function diagRL(pos){
-    return (getUpRight(pos) + getDownLeft(pos) + 1) > 3;
+function diagRL(pos, tab) {
+    return (getUpRight(pos, tab) + getDownLeft(pos, tab) + 1) > 3;
 }
 
-
-function getDownRight(pos){
+function getDownRight(pos, tab) {
     let i = 0;
-    while(tab[pos[0]+i][pos[1]+i] === tab[pos[0]][pos[1]]){
+    while (pos[0] + i < 6 && pos[1] + i < 7 && tab[pos[0] + i][pos[1] + i] === tab[pos[0]][pos[1]]) {
         i++;
     }
     return i;
 }
 
-
-function getUpLeft(pos){
+function getUpLeft(pos, tab) {
     let i = 0;
-    while(tab[pos[0]-i][pos[1]-i] === tab[pos[0]][pos[1]]){
+    while (pos[0] - i > -1 && pos[1] - i > -1 && tab[pos[0] - i][pos[1] - i] === tab[pos[0]][pos[1]]) {
         i++;
     }
     return i;
 }
 
-
-function diagLR(pos){
-    return (getUpLeft(pos) + getDownRight(pos) + 1) > 3;
+function diagLR(pos, tab) {
+    return (getUpLeft(pos, tab) + getDownRight(pos, tab) + 1) > 3;
 }
 
-
-function getUp(pos){
+function getUp(pos, tab) {
     let i = pos[0];
-    while(tab[i+1][pos[1]] === tab[pos[0]][pos[1]]){
+    while (i + 1 < 6 && tab[i + 1][pos[1]] === tab[pos[0]][pos[1]]) {
+        console.log(i);
         i++;
     }
+    console.log("pos: " + pos[0]);
     return i - pos[0];
 }
 
-
-function getDown(pos){
+function getDown(pos, tab) {
     let i = pos[0];
-    while(tab[i-1][pos[1]] === tab[pos[0]][pos[1]]){
+    while (i - 1 > -1 && tab[i - 1][pos[1]] === tab[pos[0]][pos[1]]) {
         i--;
     }
     return pos[0] - i;
 }
 
-
-function col(pos){
-    return (getUp(pos) + getDown(pos) + 1) > 3;
+function col(pos, tab) {
+    return (getUp(pos, tab) + getDown(pos, tab) + 1) > 3;
 }
 
-
-function getRight(pos){
+function getRight(pos, tab) {
     let i = pos[1];
-    while(tab[pos[0]][i+1] === tab[pos[0]][pos[1]]){
+    while (i + 1 < 7 && tab[pos[0]][i + 1] === tab[pos[0]][pos[1]]) {
         i++;
     }
     return i - pos[1];
 }
 
-
-function getLeft(pos){
+function getLeft(pos, tab) {
     let i = pos[1];
-    while(tab[pos[0]][i-1] === tab[pos[0]][pos[1]]){
+    while (i - 1 > -1 && tab[pos[0]][i - 1] === tab[pos[0]][pos[1]]) {
         i--;
     }
     return pos[1] - i;
 }
 
-
-function line(pos){
-    return (getLeft(pos) + getRight(pos) + 1) > 3;
+function line(pos, tab) {
+    console.log("ok");
+    return (getLeft(pos, tab) + getRight(pos, tab) + 1) > 3;
 }
 
-
-function isWon(pos){
-    return line(pos) || col(pos) || diagLR(pos) || diagRL(pos);
+function isWon(pos, tab) {
+    if (line(pos, tab) || col(pos, tab) || diagLR(pos, tab) || diagRL(pos, tab)) {
+        console.log("gagné");
+    }
+    return line(pos, tab) || col(pos, tab) || diagLR(pos, tab) || diagRL(pos, tab);
 }
 
 
@@ -277,10 +271,9 @@ try {
             let playerColor =1;
 
             for (let i = tab.length-1; i >= 0; i--){
-                console.log(tab[i][move])
                 if(tab[i][move]===0){
                     tab[i][move] = playerColor;
-                    // isWon([i, move])
+                    isWon([i, move], tab)
                     break;
                 }
             }
