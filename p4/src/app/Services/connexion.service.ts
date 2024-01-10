@@ -13,10 +13,9 @@ export class ConnexionService {
   constructor(private http: HttpClient) { }
   registerPlayer(player: Player): Observable<Player> {
     return this.http.post<Player>(`${this.endpoints}register`, player);
-
-
-
-
-}
+  }
+  loginPlayer(player:Player): Observable<Player> {
+    return this.http.post<Player>(`${this.endpoints}login`, player);
+  }
 
 }
