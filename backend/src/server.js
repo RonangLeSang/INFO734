@@ -89,10 +89,8 @@ function diagLR(pos, tab) {
 function getUp(pos, tab) {
     let i = pos[0];
     while (i + 1 < 6 && tab[i + 1][pos[1]] === tab[pos[0]][pos[1]]) {
-        console.log(i);
         i++;
     }
-    console.log("pos: " + pos[0]);
     return i - pos[0];
 }
 
@@ -273,7 +271,9 @@ try {
             for (let i = tab.length-1; i >= 0; i--){
                 if(tab[i][move]===0){
                     tab[i][move] = playerColor;
-                    isWon([i, move], tab)
+                    if(isWon([i, move], tab)){
+                        tab[0][0] = playerColor * 2;
+                    }
                     break;
                 }
             }
