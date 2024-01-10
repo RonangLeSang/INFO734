@@ -89,10 +89,8 @@ function diagLR(pos, tab) {
 function getUp(pos, tab) {
     let i = pos[0];
     while (i + 1 < 6 && tab[i + 1][pos[1]] === tab[pos[0]][pos[1]]) {
-        console.log(i);
         i++;
     }
-    console.log("pos: " + pos[0]);
     return i - pos[0];
 }
 
@@ -262,18 +260,20 @@ try {
             // const tab = await gamesCollection.findOne({_id: idGame});
 
             let tab = [[0,0,0,0,0,0,0],
-                            [0,0,0,0,0,0,0],
-                            [0,0,0,0,0,0,0],
-                            [0,0,0,0,0,0,0],
-                            [0,0,-1,0,1,0,0],
-                            [0,1,1,1,-1,0,0]];
+                [0,0,0,0,0,0,0],
+                [0,0,0,1,0,0,0],
+                [0,0,0,-1,0,0,0],
+                [0,1,-1,-1,0,0,0],
+                [1,1,-1,-1,0,0,0]];
 
             let playerColor =1;
 
             for (let i = tab.length-1; i >= 0; i--){
                 if(tab[i][move]===0){
                     tab[i][move] = playerColor;
-                    isWon([i, move], tab)
+                    if(isWon([i, move], tab)){
+                        tab[0][0] = playerColor * 2;
+                    }
                     break;
                 }
             }
@@ -283,37 +283,64 @@ try {
             res.status(500).json({ error: 'Internal Server Error' });
         }
     });
+    app.post('/getGrid',async (req, res) => {
+        try {
+            // const idGame = req.session.idGame;
+            // console.log(idGame)
+
+            // Find user in the collection
+
+            // const tab = await gamesCollection.findOne({_id: idGame});
+
+            let tab = [[0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0],
+                [0,0,0,1,0,0,0],
+                [0,0,0,-1,0,0,0],
+                [0,1,-1,-1,0,0,0],
+                [1,1,-1,-1,0,0,0]];
+
+            res.json({ grid: tab });
+        } catch (error) {
+            console.error('Error during move:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    });
     app.post('/listGameInWait',async(req,res)=>{
         try{
-            const result = await gamesCollection.find({id2:'none'}).toArray();
+
+            const user = req.session.userid;
+            const result = await gamesCollection.find({id2:'none',id1: { $ne: user }}).toArray();
             return res.json(result);
         }catch (error){
             res.status(500).json({error: 'Internal Server Error'});
         }
     });
     app.post('/joinGame',async(req,res)=>{
-        try{
-            const { idGame } = req.body;
+        let session;
+        try {
+            const {idGame} = req.body;
             const user = req.session.userid;
             const id = new ObjectId(idGame)
             const game = await gamesCollection.findOne({_id: id});
             console.log(user);
-            if(user !== undefined && user !== game.id1) {
+            if (user !== undefined && user !== game.id1) {
                 await gamesCollection.updateOne(
                     {_id: id},  // Filtrez le document que vous souhaitez mettre à jour
                     {$set: {"id2": user}}
                 );
+                session = req.session;
+                session.idGame = idGame;
                 return res.json(idGame);
-            }else {
+            } else {
                 res.status(500).json({error: "you can't join game"});
             }
 
-        }catch (error){
+        } catch (error) {
             res.status(500).json({error: 'Internal Server Error'});
         }
     });
     app.post('/isMyTurn', async(req,res)=>{
-        const { idGame } = req.body;
+        const idGame= req.session.idGame;
         const user = req.session.userid;
         const id = new ObjectId(idGame)
         const game = await gamesCollection.findOne({_id: id});

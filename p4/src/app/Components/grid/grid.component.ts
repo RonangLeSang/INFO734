@@ -11,11 +11,11 @@ import {GridService} from "../../Services/grid.service";
 export class GridComponent implements AfterViewInit {
 
   tab: number[][] = [[0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,0],
-                    [0,0,0,0,0,0,0],
-                    [0,0,-1,0,1,0,0],
-                    [0,1,1,1,-1,0,0]];
+                      [0,0,0,0,0,0,0],
+                      [0,0,0,1,0,0,0],
+                      [0,0,0,-1,0,0,0],
+                      [0,1,-1,-1,0,0,0],
+                      [1,2,-1,-1,0,0,0]];
   @ViewChild('canvas')
   canvas!: HTMLCanvasElement;
 
@@ -72,15 +72,20 @@ export class GridComponent implements AfterViewInit {
   }
 
 
-  // victory(points: number[][]){
-  //   if (this.context) {
-  //     this.context.beginPath();
-  //     for(let i = 0; i < 4; i++){
-  //       this.context.strokeStyle = "black";
-  //       this.context.lineTo(points[i][0]*114+55, points[i][1]*80+50);
-  //     }
-  //   }
-  // }
+  victory(player: number){
+    if (this.context){
+      let color = "black";
+      if(player === -1){
+        color= "red";
+      }else{
+        color= "yellow";
+      }
+      this.context.clearRect(0,0,800,500)
+      this.context.fillStyle = color;
+      this.context.font = "48px serif";
+      this.context.fillText(color + " win", 10, 50);
+    }
+  }
 
   async update() {
     if (this.context) {
@@ -89,26 +94,29 @@ export class GridComponent implements AfterViewInit {
       this.context.fillStyle = 'blue';
       this.context.fillRect(0,0,800,500);
 
-      for(let i = 0; i < 6; i++){
-        for(let j = 0; j < 7; j++){
-          this.context.beginPath();
-          switch(this.tab[i][j]){
-            case 0:
-              this.context.fillStyle = "grey";
-              break;
-            case 1:
-              this.context.fillStyle = "yellow";
-              break;
-            case -1:
-              this.context.fillStyle = "red";
-              break;
+      if(Math.abs(this.tab[0][0]) === 2){
+        this.victory(this.tab[0][0]/2)
+      }else{
+        for(let i = 0; i < 6; i++){
+          for(let j = 0; j < 7; j++){
+            this.context.beginPath();
+            switch(this.tab[i][j]){
+              case 0:
+                this.context.fillStyle = "grey";
+                break;
+              case 1:
+                this.context.fillStyle = "yellow";
+                break;
+              case -1:
+                this.context.fillStyle = "red";
+                break;
+            }
+            this.context.arc(j*114+55, i*80+50, 35, 0, 2 * Math.PI);
+            this.context.fill();
           }
-          this.context.arc(j*114+55, i*80+50, 35, 0, 2 * Math.PI);
-          this.context.fill();
         }
       }
     }
-    // this.victory([[1,2],[1,3],[1,4],[1,5]])
 
     await new Promise(r => setTimeout(r, (1000/10)));
     requestAnimationFrame(() => this.update());
