@@ -17,19 +17,15 @@ export class GridService {
       'Content-Type': 'application/json',
     });
 
-    // Retrieve session data from localStorage
     const sessionDataString = localStorage.getItem('session');
     console.log('Session Data:', sessionDataString);
 
-    // Parse the session data string to an object
     const sessionData = sessionDataString ? JSON.parse(sessionDataString) : null;
 
-    // If session data is available, append it to the headers
     if (sessionData) {
       headers = headers.set('session', sessionData.cookie);
     }
 
-    // Include the 'withCredentials' option to enable sending and receiving cookies
     const options = { headers, withCredentials: true };
 
     const url = `${this.apiUrl}isMyTurn`;

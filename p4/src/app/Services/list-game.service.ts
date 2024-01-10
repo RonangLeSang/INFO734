@@ -18,4 +18,16 @@ export class ListGameService {
       map((data: any) => data)
     );
   }
+
+  joinGame(idGame: string){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    const url = `${this.apiUrl}joinGame`;
+    const requestBody = {idGame: idGame};
+    return this.http.post(url, requestBody, { headers }).pipe(
+      map((data: any) => data)
+    );
+  }
+
 }
