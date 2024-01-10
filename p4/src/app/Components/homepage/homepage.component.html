@@ -1,5 +1,9 @@
+
 <div class="login-container">
-  <h2>Homepage</h2>
+  <div class="cercle">
+  <h2 class="titre">Homepage</h2>
+  </div>
+
   <form (ngSubmit)="login()">
     <label for="username">Username:</label>
     <input type="text" id="username" [(ngModel)]="user" [ngModelOptions]="{standalone: true}" required placeholder="Enter your username">
@@ -10,3 +14,5 @@
     <button type="submit">Login</button>
   </form>
 </div>
+
+
