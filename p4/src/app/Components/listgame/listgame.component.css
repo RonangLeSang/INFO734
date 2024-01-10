@@ -1,10 +1,65 @@
+body{
+  background-color: blue;
+}
+.titre{
+  text-decoration: underline;
+  font-weight: bold;
+
+}
+.barreoption{
+  display: flex;
+  position: absolute;
+  background-color: yellow;
+  width: 100%;
+  margin-top: -10px;
+  margin-left: -8px;
+
+  color: red;
+
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 0px 15px red;
+}
 .list-games {
-  margin: 0 auto;
+  margin-top: 20px;;
+  background-color: yellow;
+  max-height: calc(100% - 40px);
   width: 50%;
   padding: 20px;
   border: 1px solid #ccc;
+  border-radius: 25px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  overflow-y: auto; /* Ajoute une barre de défilement si le contenu dépasse la hauteur maximale */
+  box-shadow: 0px 0px 20px red;
 }
+.deconnecter{
 
+  background-color: red;
+  cursor: pointer;
+  border: none;
+  padding: 8px 16px;
+}
+.join{
+  background-color: red;
+  border-radius: 20px;
+  transition: transform 0.3s ease;
+}
+.join:hover{
+  transform: scale(1.1); /* Agrandit le bouton de 10% lors du survol */
+}
+.annuler{
+  margin-left: 85%;
+  border-radius: 20px;
+  transition: transform 0.3s ease;
+}
+.annuler:hover{
+  transform: scale(1.1); /* Agrandit le bouton de 10% lors du survol */
+
+}
 h2 {
   text-align: center;
   margin-bottom: 20px;
@@ -14,10 +69,12 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  text-align: center;
 }
 
 li {
   margin-bottom: 10px;
+
 }
 
 span {
@@ -30,4 +87,7 @@ button {
   color: #fff;
   border: none;
   cursor: pointer;
+
+
 }
+
