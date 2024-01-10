@@ -123,8 +123,10 @@ export class GridComponent implements AfterViewInit {
   }
 
   ngOnInit() {
-    this.gridService.getGrid().subscribe((grid: number[][]) => {
-      this.setGrid(grid);
+    this.gridService.isMyTurn().subscribe((grid: number[][] | null) => {
+      if(grid){
+        this.setGrid(grid);
+      }
     });
   }
 

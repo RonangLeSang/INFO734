@@ -246,38 +246,47 @@ try {
         try {
             const { move } = req.body;
 
-            // const user = req.session.userid;
-            // console.log(user)
-            // const idGame = req.session.idGame;
-            // console.log(idGame)
+            const user = req.session.userid;
+            const idGame = req.session.idGame;
+            const id = new ObjectId(idGame)
 
             // Find user in the collection
 
-            // if (!user) {
-            //     return res.status(401).json({ message: 'Invalid username or password' });
-            // }
-            //
-            // const tab = await gamesCollection.findOne({_id: idGame});
+            if (!user) {
+                return res.status(401).json({ message: 'Invalid username or password' });
+            }
 
-            let tab = [[0,0,0,0,0,0,0],
-                [0,0,0,0,0,0,0],
-                [0,0,0,1,0,0,0],
-                [0,0,0,-1,0,0,0],
-                [0,1,-1,-1,0,0,0],
-                [1,1,-1,-1,0,0,0]];
+            let game = await gamesCollection.findOne({_id: id});
+            let tab = game["gray"];
 
-            let playerColor =1;
+            let playerColor = 0;
+            let nextPlayer = game["nextPlayer"];
 
-            for (let i = tab.length-1; i >= 0; i--){
-                if(tab[i][move]===0){
-                    tab[i][move] = playerColor;
-                    if(isWon([i, move], tab)){
-                        tab[0][0] = playerColor * 2;
+            if(user === game["id1"] && user === game["nextPlayer"]) {
+                playerColor = 1;
+                nextPlayer = game["id2"];
+            }else {if(user === game["id2"] && user === game["nextPlayer"]){
+                playerColor = -1;
+                nextPlayer = game["id1"];
+            }}
+
+            if(playerColor) {
+                for (let i = tab.length - 1; i >= 0; i--) {
+                    if (tab[i][move] === 0) {
+                        tab[i][move] = playerColor;
+                        if (isWon([i, move], tab)) {
+                            tab[0][0] = playerColor * 2;
+                        }
+                        break;
                     }
-                    break;
                 }
             }
-            res.json({ grid: tab });
+            await gamesCollection.updateOne(
+                {_id: id},  // Filtrez le document que vous souhaitez mettre à jour
+                {$set: {"gray": tab, "nextPlayer": nextPlayer}}
+            );
+
+            res.json({grid: tab});
         } catch (error) {
             console.error('Error during move:', error);
             res.status(500).json({ error: 'Internal Server Error' });
