@@ -8,11 +8,11 @@ import {Player} from "../playerModel";
   providedIn: 'root'
 })
 export class ConnexionService {
-  private endpoints='server.js';
+  private endpoints='http://localhost:3000/';
 
   constructor(private http: HttpClient) { }
   registerPlayer(player: Player): Observable<Player> {
-    return this.http.post<Player>(`${this.endpoints}/register`, player);
+    return this.http.post<Player>(`${this.endpoints}register`, player);
 
 
 
