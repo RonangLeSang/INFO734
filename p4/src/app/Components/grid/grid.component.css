@@ -1,0 +1,52 @@
+
+.page{
+  background-color: blueviolet;
+}
+
+.barreoption{
+  display: flex;
+  position: absolute;
+  background-color: yellow;
+  width: 100%;
+  margin-top: -10px;
+  margin-left: -8px;
+
+  color: red;
+
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 0px 15px red;
+}
+.deconnecter{
+
+  background-color: red;
+  cursor: pointer;
+  border: none;
+  padding: 8px 16px;
+}
+.titre{
+  text-decoration: underline;
+  font-weight: bold;
+  color: red;
+
+
+}
+
+
+.canva{
+  position: absolute;
+  margin-top: 20px;;
+
+  max-height: calc(100% - 40px);
+  width: 50%;
+  padding: 20px;
+
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+
+}
+
