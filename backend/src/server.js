@@ -295,8 +295,10 @@ try {
         try{
             //id1: { $ne: user }
 
-            const user = req.session.userid;
-            const result = await gamesCollection.find({id2:'none',}).toArray();
+            const user = req.query.userid;
+            console.log(user);
+            const result = await gamesCollection.find({id2:'none',id1: { $ne: user }}).toArray();
+            console.log(result);
             return res.json(result);
         }catch (error){
             res.status(500).json({error: 'Internal Server Error'});
