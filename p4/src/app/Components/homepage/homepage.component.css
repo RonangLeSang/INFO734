@@ -61,6 +61,10 @@ input {
   background-color: red;
   border: none;
 }
+input:hover {
+    transform: scale(1.1); /* Grossir le bouton à 110% de sa taille d'origine */
+  }
+
 .login{
   border-radius: 20px;
   background-color: red;
@@ -69,6 +73,10 @@ input {
   margin-bottom: 5px;
   box-shadow: 0 0 10px blue;
   border: none;
+  cursor: pointer;
+}
+.login:hover {
+  transform: scale(1.1); /* Grossir le bouton à 110% de sa taille d'origine */
 }
 .register{
   border-radius: 20px;
@@ -78,4 +86,8 @@ input {
 
   box-shadow: 0 0 10px red;
   border: none;
+  cursor: pointer;
+}
+.register:hover {
+  transform: scale(1.1); /* Grossir le bouton à 110% de sa taille d'origine */
 }

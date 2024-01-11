@@ -33,6 +33,7 @@ form {
 .titre {
   color:black;
 
+
   text-decoration: underline; /* Souligné */
   border-radius: 50%;
   background-color: yellow;
@@ -61,6 +62,9 @@ input {
   background-color: yellow;
   border: none;
 }
+input:hover {
+  transform: scale(1.1); /* Grossir le bouton à 110% de sa taille d'origine */
+}
 .register{
   border-radius: 20px;
   background-color: yellow;
@@ -69,6 +73,10 @@ input {
   margin-bottom: 5px;
   box-shadow: 0 0 10px blue;
   border: none;
+  cursor: pointer;
+}
+.register:hover {
+  transform: scale(1.1); /* Grossir le bouton à 110% de sa taille d'origine */
 }
 .annuler{
   border-radius: 20px;
@@ -78,4 +86,8 @@ input {
 
   box-shadow: 0 0 10px yellow;
   border: none;
+  cursor: pointer;
+}
+.annuler:hover {
+  transform: scale(1.1); /* Grossir le bouton à 110% de sa taille d'origine */
 }
