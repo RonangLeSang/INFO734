@@ -5,7 +5,7 @@ import {ListgameComponent} from "./Components/listgame/listgame.component";
 
 
 export const routes: Routes = [
-  {path:'login',component:HomepageComponent},
+  {path:'',component:HomepageComponent},
   {path:'grid',component:GridComponent},
   {path:'list',component:ListgameComponent}
 
