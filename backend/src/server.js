@@ -139,7 +139,7 @@ try {
 
     // Define User collection
     const userCollection = db.collection('users');
-    const gamesCollection = db.collection('games');
+    let gamesCollection = db.collection('games');
 
 
     app.use(cors({
@@ -279,6 +279,7 @@ try {
                         break;
                     }
                 }
+                gamesCollection = db.collection('games');
             }
             await gamesCollection.updateOne(
                 {_id: id},  // Filtrez le document que vous souhaitez mettre à jour
@@ -329,25 +330,27 @@ try {
         }
     });
     app.get('/isMyTurn', async (req, res) => {
-        const idGame = req.session.idGame;
-        const user = req.session.userid;
+        gamesCollection = db.collection('games');
+        const idGame = req.query.idGame;
+        const user = req.query.userid;
         const id = new ObjectId(idGame);
+        console.log(user);
 
         try {
             const game = await gamesCollection.findOne({ _id: id });
 
             if (user === game.id1 || user === game.id2) {
                 if (game.nextPlayer === user) {
-                    return res.json({ isMyTurn: true, grid: game.gray, session: req.session });
+                    return res.json({ isMyTurn: true, grid: game.gray });
                 } else {
-                    return res.json({ isMyTurn: false, message: 'Not your turn', session: req.session });
+                    return res.json({ isMyTurn: false, message: 'Not your turn' });
                 }
             } else {
-                return res.status(401).json({ isMyTurn: false, message: 'Not in the game', session: req.session });
+                return res.status(401).json({ isMyTurn: false, message: 'Not in the game' });
             }
         } catch (error) {
             console.error('Error checking turn:', error);
-            return res.status(500).json({ error: 'Internal Server Error', session: req.session });
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
     });
 } catch (e) {

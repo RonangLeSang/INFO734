@@ -125,30 +125,40 @@ export class GridComponent implements AfterViewInit {
     requestAnimationFrame(() => this.update());
   }
 
-  ngOnInit() {
-    this.gridService.isMyTurn().subscribe((grid: number[][] | null) => {
-      if(grid){
-        this.setGrid(grid);
-      }
-    });
-  }
+  // ngOnInit() {
+  //   this.gridService.isMyTurn().subscribe((grid: number[][] | null) => {
+  //     if(grid){
+  //       this.setGrid(grid);
+  //     }
+  //   });
+  // }
 
 
   isMyTurn() {
     console.log("update");
-    this.gridService.isMyTurn().subscribe((updatedGrid: number[][] | null) => {
-      if(updatedGrid) {
-        console.log(updatedGrid);
-        if (updatedGrid) {
-          this.setGrid(updatedGrid);
-          this.setTurn(true);
-        } else {
-          console.error('Invalid response format: "grid" property is missing.');
-        }
+    const sessionData = localStorage.getItem('session');
+    if(sessionData){
+      let session = JSON.parse(sessionData)
+      const userid = session["userid"];
+      console.log(userid);
+      // const idGame = session["idGame"]
+      const idGame = "659f249d3a1c2f37ba883ea2";
+      console.log(idGame);
+
+      if(userid && idGame){
+        this.gridService.isMyTurn(idGame, userid).subscribe((updatedGrid: number[][] | null) => {
+          if (updatedGrid) {
+            console.log(updatedGrid);
+            this.setGrid(updatedGrid);
+            this.setTurn(true);
+          } else {
+            console.error('Invalid response format: "grid" property is missing.');
+          }
+        }, error => {
+          console.error('Error making a move:', error);
+        });
       }
-    }, error => {
-      console.error('Error making a move:', error);
-    });
+    }
   }
 
 

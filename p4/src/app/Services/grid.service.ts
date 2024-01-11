@@ -12,31 +12,12 @@ export class GridService {
 
   constructor(private http: HttpClient, private cookie:CookieService) {}
 
-  isMyTurn(): Observable<number[][]> {
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
-    const sessionDataString = localStorage.getItem('session');
-    console.log('Session Data:', sessionDataString);
-
-    const sessionData = sessionDataString ? JSON.parse(sessionDataString) : null;
-
-    if (sessionData) {
-      headers = headers.set('session', sessionData.cookie);
-    }
-
-    const options = { headers, withCredentials: true };
-
-    const url = `${this.apiUrl}isMyTurn`;
-    console.log('Request URL:', url);
-    console.log('Request Headers:', headers);
-
-    return this.http.get(url, options).pipe(
+  isMyTurn(idGame: string, userid: string): Observable<any> {
+    const url = `${this.apiUrl}isMyTurn?idGame=${idGame}&userid=${userid}`;
+    return this.http.get(url).pipe(
       map((data: any) => data.grid)
     );
   }
-
 
   makeAMove(pos: number): Observable<number[][]> {
     const headers = new HttpHeaders({

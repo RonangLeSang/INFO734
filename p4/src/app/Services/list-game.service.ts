@@ -47,7 +47,7 @@ export class ListGameService {
     const options = { headers, withCredentials: true };
 
     const url = `${this.apiUrl}joinGame`;
-    const requestBody = {idGame: idGame};
+    const requestBody = { idGame: idGame };
     return this.http.post(url, requestBody, { headers }).pipe(
       map((data: any) => data)
     );
