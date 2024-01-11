@@ -303,7 +303,7 @@ try {
 
             const user = req.query.userid;
             console.log(user);
-            const result = await gamesCollection.find({id2:'none',id1: { $ne: user }}).toArray();
+            const result = await gamesCollection.find({id2:'none',}).toArray();
             console.log(result);
             return res.json(result);
         }catch (error){
@@ -313,11 +313,10 @@ try {
     app.post('/joinGame',async(req,res)=>{
         let session;
         try {
-            const {idGame} = req.body;
-            const user = req.session.userid;
+            const {idGame,user} = req.body;
             const id = new ObjectId(idGame)
-            const game = await gamesCollection.findOne({_id: id});
-            console.log(user);
+            const game = await gamesCollection.findOne({_id: idGame});
+            console.log(idGame);
             if (user !== undefined && user !== game.id1) {
                 await gamesCollection.updateOne(
                     {_id: id},  // Filtrez le document que vous souhaitez mettre à jour

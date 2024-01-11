@@ -23,7 +23,7 @@ export class RegisterpageComponent implements OnInit {
   }
   annuler():void{
     this.router.navigate(['/']);
-    
+
   }
   register():void{
     this.registerService.register(this.user, this.password).subscribe(

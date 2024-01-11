@@ -30,6 +30,13 @@ export class ListgameComponent {
   }
 
   joinGame(idGame: any) {
+    this.listGameService.joinGame(idGame)
+      .subscribe(( data: any) => {
+
+        this.router.navigate(['/grid']);
+      }, error => {
+        console.error('Failed to get games:', error);
+      });
 
   }
 }

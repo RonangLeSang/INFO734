@@ -12,19 +12,14 @@ export class ListGameService {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-
-    const sessionDataString = localStorage.getItem('session');
-    console.log('Session Data:', sessionDataString);
-
-    const sessionData = sessionDataString ? JSON.parse(sessionDataString) : null;
-
-    if (sessionData) {
-      headers = headers.set('session', sessionData.cookie);
-    }
-
     const options = { headers, withCredentials: true };
+
+    const user = localStorage.getItem(`userid`);
+
+
+
     const url = `${this.apiUrl}listGameInWait`;
-    const requestBody = {};
+    const requestBody = {'username':user};
     return this.http.post(url, requestBody, options).pipe(
       map((data: any) => data)
     );
@@ -35,21 +30,21 @@ export class ListGameService {
     'Content-Type': 'application/json',
   });
 
-    const sessionDataString = localStorage.getItem('session');
-    console.log('Session Data:', sessionDataString);
-
-    const sessionData = sessionDataString ? JSON.parse(sessionDataString) : null;
-
-    if (sessionData) {
-      headers = headers.set('session', sessionData.cookie);
-    }
-
     const options = { headers, withCredentials: true };
+    const user = localStorage.getItem(`userid`);
 
     const url = `${this.apiUrl}joinGame`;
-    const requestBody = { idGame: idGame };
+    const requestBody = { idGame: idGame,username: user };
+    console.log(requestBody);
     return this.http.post(url, requestBody, { headers }).pipe(
-      map((data: any) => data)
+      map((data: any) => {
+        const sessionData = data.session;
+
+        // Store the session information in localStorage
+        localStorage.setItem('session', JSON.stringify(sessionData));
+
+        return data;
+      })
     );
   }
 
