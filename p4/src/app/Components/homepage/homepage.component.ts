@@ -25,7 +25,10 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  register():void{
+    this.router.navigate(['/register']);
 
+  }
   login(): void {
     this.connexionService.login(this.user, this.password).subscribe(
       (response: any) => {
