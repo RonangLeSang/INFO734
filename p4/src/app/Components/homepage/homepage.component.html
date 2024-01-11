@@ -1,20 +1,20 @@
-
+<div class="body">
 <div class="login-container">
   <div class="cercle">
   <h2 class="titre">Homepage</h2>
   </div>
 
   <form (ngSubmit)="login()">
-    <label for="username">Username:</label>
+
     <input type="text" id="username" [(ngModel)]="user" [ngModelOptions]="{standalone: true}" required placeholder="Enter your username">
 
-    <label for="password">Password:</label>
+
     <input type="password" id="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" required placeholder="Enter your password">
 
-    <button type="submit">Login</button>
+    <button class="login" type="submit">Login</button>
   </form>
-  <button (click)="register()">register</button>
+  <button class="register" (click)="register()">register</button>
 
 </div>
 
-
+</div>

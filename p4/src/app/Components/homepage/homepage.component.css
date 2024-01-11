@@ -1,5 +1,9 @@
-body{
-  background-color: blue;
+.body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* 100% de la hauteur de la vue */
+  background-color: blue; /* Couleur bleue pour le fond */
 }
 .login-container {
   background-color: yellow;
@@ -16,6 +20,7 @@ body{
   left: 50%;
   transform: translate(-50%, -50%);
   box-sizing: border-box;
+  box-shadow: 0 0 15px white;
 }
 
 form {
@@ -24,10 +29,7 @@ form {
   margin-top: 30px;
 }
 
-label {
-  margin-bottom: 5px;
-  font-weight: bold;
-}
+
 .titre {
   color:black;
 
@@ -49,10 +51,31 @@ label {
   }
 
 input {
+  color:blue;
   width: 50%;
   padding: 5px;
-  border: 1px solid #ccc;
+  box-shadow: 0 0 20px blue;
   border-radius: 25px;
   margin-bottom: 10px;
   margin-left: 25%;
+  background-color: red;
+  border: none;
+}
+.login{
+  border-radius: 20px;
+  background-color: red;
+  width: 30%;
+  margin-left:35%;
+  margin-bottom: 5px;
+  box-shadow: 0 0 10px blue;
+  border: none;
+}
+.register{
+  border-radius: 20px;
+  background-color: blue;
+  width: 30%;
+  margin-left:35%;
+
+  box-shadow: 0 0 10px red;
+  border: none;
 }

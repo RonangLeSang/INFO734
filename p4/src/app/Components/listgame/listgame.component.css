@@ -1,5 +1,9 @@
 body{
-  background-color: blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* 100% de la hauteur de la vue */
+  background-color: blue; /* Couleur bleue pour le fond */
 }
 .titre{
   text-decoration: underline;
