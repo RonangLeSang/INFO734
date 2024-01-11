@@ -2,7 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ConnexionService } from '../../Services/connexion.service';
 import {FormsModule} from "@angular/forms";
 import {CookieService} from "ngx-cookie-service";
-import { Router } from '@angular/router';
+import {Router} from "@angular/router";
+
 @Component({
   selector: 'app-login',
   templateUrl: './homepage.component.html',
