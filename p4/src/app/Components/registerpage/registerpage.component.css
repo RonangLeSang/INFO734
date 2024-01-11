@@ -1,8 +1,12 @@
-body{
-  background-color: blue;
+.body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* 100% de la hauteur de la vue */
+  background-color: blue; /* Couleur bleue pour le fond */
 }
 .login-container {
-  background-color: yellow;
+  background-color: red;
   position: absolute;
   margin-top: 20px;;
 
@@ -16,6 +20,7 @@ body{
   left: 50%;
   transform: translate(-50%, -50%);
   box-sizing: border-box;
+  box-shadow: 0 0 15px white;
 }
 
 form {
@@ -24,17 +29,15 @@ form {
   margin-top: 30px;
 }
 
-label {
-  margin-bottom: 5px;
-  font-weight: bold;
-}
+
 .titre {
   color:black;
 
+
   text-decoration: underline; /* Souligné */
   border-radius: 50%;
-  background-color: red;
-  padding: 10px;
+  background-color: yellow;
+  padding: 15px;
 }
 .cercle {
   display: flex;
@@ -43,16 +46,48 @@ label {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background-color: red;
+  background-color: yellow;
   color: white;
   margin: 20px auto;
 }
 
 input {
+  color:blue;
   width: 50%;
   padding: 5px;
-  border: 1px solid #ccc;
+  box-shadow: 0 0 20px blue;
   border-radius: 25px;
   margin-bottom: 10px;
   margin-left: 25%;
+  background-color: yellow;
+  border: none;
+}
+input:hover {
+  transform: scale(1.1); /* Grossir le bouton à 110% de sa taille d'origine */
+}
+.register{
+  border-radius: 20px;
+  background-color: yellow;
+  width: 30%;
+  margin-left:35%;
+  margin-bottom: 5px;
+  box-shadow: 0 0 10px blue;
+  border: none;
+  cursor: pointer;
+}
+.register:hover {
+  transform: scale(1.1); /* Grossir le bouton à 110% de sa taille d'origine */
+}
+.annuler{
+  border-radius: 20px;
+  background-color: blue;
+  width: 30%;
+  margin-left:35%;
+
+  box-shadow: 0 0 10px yellow;
+  border: none;
+  cursor: pointer;
+}
+.annuler:hover {
+  transform: scale(1.1); /* Grossir le bouton à 110% de sa taille d'origine */
 }

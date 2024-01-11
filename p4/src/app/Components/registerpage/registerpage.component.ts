@@ -19,6 +19,11 @@ export class RegisterpageComponent implements OnInit {
   @Output() loginSuccess = new EventEmitter<number[][]>();
   constructor(private registerService: RegisterService, private router: Router){}
   ngOnInit(): void {
+
+  }
+  annuler():void{
+    this.router.navigate(['/']);
+    
   }
   register():void{
     this.registerService.register(this.user, this.password).subscribe(
@@ -28,7 +33,7 @@ export class RegisterpageComponent implements OnInit {
 
       // Store the session information in localStorage
 
-      this.router.navigate(['/login']);
+      this.router.navigate(['/']);
       console.log('register successful. Session data:', sessionData);
 
     },
