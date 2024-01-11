@@ -139,8 +139,9 @@ try {
 
     // Define User collection
     const userCollection = db.collection('users');
-    let gamesCollection = db.collection('games');
+    const gamesCollection = db.collection('games');
 
+    let tabCollections = new Map();
 
     app.use(cors({
         origin: 'http://localhost:4200', // replace with your Angular app's domain
@@ -245,8 +246,8 @@ try {
         try {
             const { move } = req.body;
 
-            const user = req.session.userid;
-            const idGame = req.session.idGame;
+            const user = req.query.userid;
+            const idGame = req.query.idGame;
             const id = new ObjectId(idGame)
 
             // Find user in the collection
@@ -260,6 +261,9 @@ try {
 
             let playerColor = 0;
             let nextPlayer = game["nextPlayer"];
+            console.log(nextPlayer);
+            console.log(game["id1"]);
+            console.log(user);
 
             if(user === game["id1"] && user === game["nextPlayer"]) {
                 playerColor = 1;
@@ -270,6 +274,7 @@ try {
             }}
 
             if(playerColor) {
+                console.log("-----------------------------------");
                 for (let i = tab.length - 1; i >= 0; i--) {
                     if (tab[i][move] === 0) {
                         tab[i][move] = playerColor;
@@ -279,13 +284,13 @@ try {
                         break;
                     }
                 }
-                gamesCollection = db.collection('games');
             }
             await gamesCollection.updateOne(
                 {_id: id},  // Filtrez le document que vous souhaitez mettre à jour
                 {$set: {"gray": tab, "nextPlayer": nextPlayer}}
             );
-
+            tabCollections.get(idGame).set("grid", tab);
+            // console.log(tab);
             res.json({grid: tab});
         } catch (error) {
             console.error('Error during move:', error);
@@ -330,29 +335,38 @@ try {
         }
     });
     app.get('/isMyTurn', async (req, res) => {
-        gamesCollection = db.collection('games');
         const idGame = req.query.idGame;
         const user = req.query.userid;
         const id = new ObjectId(idGame);
-        console.log(user);
 
         try {
             const game = await gamesCollection.findOne({ _id: id });
 
-            if (user === game.id1 || user === game.id2) {
-                if (game.nextPlayer === user) {
-                    return res.json({ isMyTurn: true, grid: game.gray });
-                } else {
-                    return res.json({ isMyTurn: false, message: 'Not your turn' });
-                }
+            // Update the cache or perform other actions based on the latest game state
+            if (!tabCollections.has(idGame)) {
+                console.log("idGame not found. Creating entry...");
+                const gameTab = new Map();
+                gameTab.set("grid", game.gray);
+                gameTab.set("players", [game.id1, game.id2]);
+                tabCollections.set(idGame, gameTab);
+                console.log(tabCollections);
+            }
+
+            if (user === tabCollections.get(idGame).get("players")[0]) {
+                return res.json({ isMyTurn: true, grid: tabCollections.get(idGame).get("grid") });
             } else {
-                return res.status(401).json({ isMyTurn: false, message: 'Not in the game' });
+                if (user === tabCollections.get(idGame).get("players")[1]) {
+                    return res.json({ isMyTurn: false, message: 'Not your turn' });
+                } else {
+                    return res.status(401).json({ isMyTurn: false, message: 'Not in the game' });
+                }
             }
         } catch (error) {
             console.error('Error checking turn:', error);
             return res.status(500).json({ error: 'Internal Server Error' });
         }
     });
+
 } catch (e) {
     console.error(e);
 }

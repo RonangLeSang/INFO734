@@ -3,6 +3,7 @@ import {HoleComponent} from "../hole/hole.component";
 import {GridService} from "../../Services/grid.service";
 import {response} from "express";
 import {CookieService} from "ngx-cookie-service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-grid',
@@ -14,10 +15,10 @@ export class GridComponent implements AfterViewInit {
 
   tab: number[][] = [[0,0,0,0,0,0,0],
                       [0,0,0,0,0,0,0],
-                      [0,0,0,1,0,0,0],
-                      [0,0,0,-1,0,0,0],
-                      [0,1,-1,-1,0,0,0],
-                      [1,2,-1,-1,0,0,0]];
+                      [0,0,0,0,0,0,0],
+                      [0,0,0,0,0,0,0],
+                      [0,0,0,0,0,0,0],
+                      [0,0,0,0,0,0,0]];
   @ViewChild('canvas')
   canvas!: HTMLCanvasElement;
 
@@ -27,7 +28,7 @@ export class GridComponent implements AfterViewInit {
   pointerY: number = 0;
 
   isYourTurn: boolean = true;
-  constructor(private gridService: GridService, private cookie:CookieService) {}
+  constructor(private gridService: GridService, private cookie:CookieService, public router:Router) {}
 
   @ViewChild('myCanvas', { static: true }) myCanvas!: ElementRef<HTMLCanvasElement>;
 
@@ -44,6 +45,7 @@ export class GridComponent implements AfterViewInit {
     this.gridService.makeAMove(move).subscribe((updatedGrid: number[][]) => {
       console.log(updatedGrid);
       if (updatedGrid) {
+        console.log("yo");
         this.setGrid(updatedGrid);
       } else {
         console.error('Invalid response format: "grid" property is missing.');
@@ -134,30 +136,32 @@ export class GridComponent implements AfterViewInit {
   // }
 
 
+
   isMyTurn() {
     console.log("update");
     const sessionData = localStorage.getItem('session');
     if(sessionData){
       let session = JSON.parse(sessionData)
       const userid = session["userid"];
+      localStorage.setItem('userid',userid );
       console.log(userid);
       // const idGame = session["idGame"]
-      const idGame = "659f249d3a1c2f37ba883ea2";
+      const idGame = "659eff1a970910aaf5e2c899";
       console.log(idGame);
 
-      if(userid && idGame){
-        this.gridService.isMyTurn(idGame, userid).subscribe((updatedGrid: number[][] | null) => {
-          if (updatedGrid) {
-            console.log(updatedGrid);
-            this.setGrid(updatedGrid);
-            this.setTurn(true);
-          } else {
-            console.error('Invalid response format: "grid" property is missing.');
-          }
-        }, error => {
-          console.error('Error making a move:', error);
-        });
-      }
+
+      this.gridService.isMyTurn(idGame, userid).subscribe((updatedGrid: number[][] | null) => {
+        console.log('Subscription triggered'); // Add this line
+        if (updatedGrid) {
+          console.log(updatedGrid);
+          this.setGrid(updatedGrid);
+          this.setTurn(true);
+        } else {
+          console.error('Invalid response format: "grid" property is missing.');
+        }
+      }, error => {
+        console.error('Error making a move:', error);
+      });
     }
   }
 

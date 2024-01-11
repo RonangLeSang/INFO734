@@ -26,8 +26,12 @@ export class GridService {
     // Include the 'withCredentials' option to enable sending and receiving cookies
     const options = { headers, withCredentials: true };
 
-    const url = `${this.apiUrl}makeAMove`;
     const requestBody = { move: pos };
+
+    const idGame = "659eff1a970910aaf5e2c899";
+    console.log("--------------" + localStorage.getItem(`userid`) + "--------------")
+    const userid = localStorage.getItem(`userid`);
+    const url = `${this.apiUrl}makeAMove?idGame=${idGame}&userid=${userid}`;
 
     return this.http.post(url, requestBody, options).pipe(
       map((data: any) => data.grid)
